@@ -1,0 +1,27 @@
+.mainProducts{
+  display: flex;
+
+  margin-top: 2rem;
+}
+
+.filter{
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  border-right: grey solid 1px;;
+}
+
+.productsList{
+  flex: 4;
+}
+
+.filtercategorie{
+
+  height: 30vh;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-left: 2rem ;
+}

@@ -1,0 +1,30 @@
+.header{
+  background-color: #E5E5E5;
+
+}
+.headerContent{
+  height: 80vh;
+  background-color: #E5E5E5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerImg{
+  height: 100%;
+}
+
+.headerText{
+  padding-left: 2rem;
+text-align: end;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+gap: 5px;
+
+}
+
+.buttonSite{
+  display: flex;
+}
+

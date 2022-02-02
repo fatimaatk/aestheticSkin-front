@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
+
+.messagepromo{
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.messagepromo1{
+  display: block;
+ font-size: small;
+ padding: 5px;
+}
+
+.menu{
+  display: flex;
+  background-color: #E5E5E5;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.logo{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Tenor Sans', sans-serif;
+  outline: 0;
+  margin-left: 5px;
+}
+.logo1:hover{
+  color: black;
+}
+
+.ulMenu{
+  width: 100%;
+  display: flex;
+  justify-content: space-around
+}
+
+.liMenu:hover{
+  color: black;
+}

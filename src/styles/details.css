@@ -1,0 +1,102 @@
+.backProducts {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 15rem;
+  align-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-decoration: underline;
+}
+.detaildGlobal{
+  display: flex;
+  justify-content: center;
+}
+.detailImage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImage {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  flex:2;
+  margin-right: 2rem;
+}
+
+.autreImage {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 4px;
+  grid-row-gap: 7px;
+
+}
+
+.image2 {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.image3 {
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+.image1{
+  width: 16rem;
+  height: 24.5rem;
+}
+
+.detailProduct{
+flex:2;
+}
+.detailTitle{
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.detailCategory{
+  color: grey;
+}
+
+.detailDescription{
+  margin-top: 2rem;
+  width: 50%;
+}
+
+.detailContenance{
+  margin-top: 2rem;
+}
+
+.addCart{
+  background-color: #E5E5E5;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.ingredientsContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+ 
+}
+
+.ingredientsdetails{
+  width: 50%;
+}
+
+.listeCommentaire{
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.commentaires{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  inline-size: 50%;
+  gap: 20px;
+  overflow-wrap: break-word;
+}
