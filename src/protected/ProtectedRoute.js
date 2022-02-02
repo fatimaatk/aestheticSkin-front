@@ -6,5 +6,6 @@ import { UserContext } from "../contexts/UserContext.js";
 export const ProtectedRoute = () => {
     const { isAuthenticated } = useContext(AuthContext);
     const { user } = useContext(UserContext);
-    return isAuthenticated && user.role === 1 ? <Outlet /> : <Navigate to="/" /> 
-}
+    return (
+        isAuthenticated && user.role === 1 ? <Outlet /> : <Navigate to="/" /> 
+    )}

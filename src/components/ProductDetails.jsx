@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+// import { AiOutlineArrowLeft } from "react-icons/ai";
+import { FaStar } from "react-icons/fa";
+import PanierContext from '../contexts/PanierContext';
 import "./../styles/details.css";
 
 const ProductDetails = () => {
@@ -9,6 +12,8 @@ const ProductDetails = () => {
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
+  const { cartItems, onAdd } = useContext(PanierContext);
+
 
   useEffect(() => {
     getProduct();
@@ -16,10 +21,13 @@ const ProductDetails = () => {
     getRates();
   }, [params.id]);
 
+
+  console.log('panier', cartItems)
+
   const getProduct = () => {
     axios
       .get(`http://localhost:8000/products/${params.id}`)
-      .then((response) => {
+      .then((response) => { 
         setProduct(response.data);
       });
   };
@@ -40,7 +48,8 @@ const ProductDetails = () => {
       });
   };
 
-  console.log(comments);
+  console.log(cartItems)
+
   return (
     <div className="mainProduct">
       <div className="backProducts">
@@ -75,16 +84,15 @@ const ProductDetails = () => {
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
-            <div className="stars">
-              {rates
-                ? rates.map((rate) => (
-                    <div key={rate.id}>
-                      <p>{rate.rate_id}</p>{" "}
-                    </div>
-                  ))
-                : "Loading..."}
+            <div className="stars mt-2">
+              <p>
+                Note clients : <br />
+                {rates
+                  ? rates.map((rate) => <p>{rate.rate_id}/5</p>)
+                  : "Loading..."}
+              </p>
             </div>
-            <button className="addCart">AJOUTER AU PANIER</button>
+            <button className="addCart" onClick={() => onAdd(product)}>AJOUTER AU PANIER</button>
           </div>
         </div>
       </div>

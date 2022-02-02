@@ -2,7 +2,12 @@ import React from "react";
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({isAuthenticated}) => {
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+  console.log('auth', isAuthenticated);
   return (
     <div>
       <div className="messagepromo">
@@ -13,7 +18,7 @@ const NavBar = () => {
       </div>
       <div className="menu">
         <div className="logo">
-          <Link to="/" >
+          <Link to="/">
             <h1 className="logo1 text-5xl">Aēsthetic </h1>
           </Link>
           <Link to="/">
@@ -21,18 +26,19 @@ const NavBar = () => {
           </Link>
         </div>
         <ul className="ulMenu">
-        <Link to="/products" >
-          <li className="liMenu">PRODUITS</li>
+          <Link to="/products">
+            <li className="liMenu">PRODUITS</li>
           </Link>
-          <Link to="/lamarque" >
-          <li className="liMenu">LA MARQUE</li>
+          <Link to="/lamarque">
+            <li className="liMenu">LA MARQUE</li>
           </Link>
-          <Link to="/login" >
-          <li className="liMenu">MON COMPTE</li>
+          <Link to="/connexion">
+            <li className="liMenu">MON COMPTE</li>
           </Link>
-          <Link to="/monpanier" >
-          <li className="liMenu">PANIER</li>
+          <Link to="/monpanier">
+            <li className="liMenu">PANIER</li>
           </Link>
+          <li onClick={() => logout()}>DECONNEXION</li>
         </ul>
       </div>
     </div>

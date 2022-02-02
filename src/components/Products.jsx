@@ -1,15 +1,18 @@
 import { useContext } from "react";
 import ProductContext from "../contexts/ProductsContext";
 import ProductCard from "./ProductCard";
-import {Link} from "react-router-dom";
+
+
 import "./../styles/products.css";
 
 // import Filter from "./Filter";
 
 const Products = () => {
+
   const { products } = useContext(ProductContext);
 
   console.log(products);
+
 
   return (
     <div className="mainProducts">
@@ -31,11 +34,12 @@ const Products = () => {
         <div className="productsList grid grid-rows-2 grid-flow-col gap-2 ml-6">
           {products
             ? products.map((product) => (
-              <Link to={`/products/${product.id}`}>
-                <ProductCard key={product.id} product={product} />
-                </Link>
+              // 
+                <ProductCard key={product.id} product={product}/>
+                //</Link>
               ))
             : "Loading ..."}
+        
         </div>
     </div>
   );

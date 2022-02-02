@@ -1,48 +1,75 @@
 import { useState } from "react";
 import axios from "axios";
+import "../styles/login.css";
 
-const url = "http://localhost:8000/security/login";
-export const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+const Login = () => {
+  const url = "http://localhost:8000/security/login";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (email && password) {
-            const user = { email: email, password: password };
-            axios.post(url, user)
-                .then(({ data }) => {
-                    console.log(data);
-                    if (data.error) setError(data.error);
-                    else {
-                        localStorage.setItem("token", data.token);
-                        localStorage.setItem("user", JSON.stringify(data.user));
-                        window.location.href = "/";
-                    }
-                })
-        } else {
-            setError("Please enter email and password");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email && password) {
+      const user = { email: email, password: password };
+      axios.post(url, user).then(({ data }) => {
+        if (data.error) setError(data.error);
+        else {
+          window.location.href = "/admin";
+          localStorage.setItem("token", data.token);
+          localStorage.setItem(`user`, JSON.stringify(data.user));
         }
+      });
+    } else {
+      setError("Please enter email and password");
     }
+  };
 
-    return (
-        <div className="container bg-primary text-white">
-            <div className="row text-center p-5">
-                <h2 className="text-center mb-5">Login</h2>
-                <form className="col-lg-6 col-md-6 col-xs-12 mx-auto" onSubmit={handleSubmit}>
-                    {error && <p className="alert alert-danger">{error}</p>}
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="text" className="form-control" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <button type="submit" className="btn btn-warning">Login</button>
-                </form>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="login-block">
+      <h2 className="register-h2 mt-1 mb-2 text-center w-full z-10 font-semibold">CONNEXION</h2>
+      <div className="login">
+        <form className="login-form" onSubmit={handleSubmit}>
+          {error && <p className="login-error">{error}</p>}
+          <div className="form-group">
+            <label htmlFor="email" className="label my-2 pt-1">
+              Adresse email
+            </label>
+            <input
+              type="text"
+              className="inputForm appearance-none block w-full   py-1 leading-tight focus:outline-none"
+              name="email"
+              id="email"
+              value={email}
+              required="required"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="login-form-group">
+            <label htmlFor="password" className="label my-2 pt-1">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              className="inputForm appearance-none block w-full   py-1 leading-tight focus:outline-none"
+              name="password"
+              id="password"
+              value={password}
+              required="required"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="login-button text-white bg-black hover:bg-gray-100 text-black font-medium py-1 px-4 mt-4 mb-3 w-60"
+          >
+            Me connecter
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
