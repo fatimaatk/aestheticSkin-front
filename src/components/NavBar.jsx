@@ -1,13 +1,16 @@
-import React from "react";
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
+import { BsCart, BsCartCheck, BsHeart } from "react-icons/bs";
 
-const NavBar = ({isAuthenticated}) => {
+const NavBar = (props) => {
   const logout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
-  console.log('auth', isAuthenticated);
+  const token = localStorage.getItem("token");
+
+  const { cartItems } = props;
+
   return (
     <div>
       <div className="messagepromo">
@@ -25,20 +28,54 @@ const NavBar = ({isAuthenticated}) => {
             <h1 className="logo1 text-sm text-right">SKIN</h1>
           </Link>
         </div>
-        <ul className="ulMenu">
+        <ul className="ulMenu cursor-pointer">
           <Link to="/products">
             <li className="liMenu">PRODUITS</li>
           </Link>
           <Link to="/lamarque">
             <li className="liMenu">LA MARQUE</li>
           </Link>
-          <Link to="/connexion">
-            <li className="liMenu">MON COMPTE</li>
-          </Link>
+          {token ? (
+            <div className="flex flex-row">
+              <Link to="/moncompte">
+                <li className="text-black ml-2">MON COMPTE</li>
+              </Link>
+            </div>
+          ) : null}
+           {token ? (
+            <div className="flex flex-row">
+              <Link to="/favoris">
+              < BsHeart className="text-2xl" />
+            </Link>
+            </div>
+          ) : (
+            null
+          )}
           <Link to="/monpanier">
-            <li className="liMenu">PANIER</li>
+            <li className="liMenu">
+              {cartItems.length > 0 ? (
+                <div className="flex flex-row">
+                  <BsCartCheck className="text-2xl" />
+                  <p className="text-black ml-2">{cartItems.length}</p>
+                </div>
+              ) : (
+                <BsCart className="text-2xl" />
+              )}
+            </li>
           </Link>
-          <li onClick={() => logout()}>DECONNEXION</li>
+
+          {token ? (
+            <div className="flex flex-row">
+              <li className="text-black ml-2" onClick={() => logout()}>
+                DECONNEXION
+              </li>
+            </div>
+          ) : (
+            <Link to="/connexion">
+              <li className="liMenu">MON COMPTE</li>
+            </Link>
+          )}
+          
         </ul>
       </div>
     </div>

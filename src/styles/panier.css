@@ -1,0 +1,50 @@
+.mainpanier{
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.paniercomplete{
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
+}
+
+.imagepanier{
+  width: 50%;
+}
+
+.basketAddRem{
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.addBasket{
+  background-color: #E5E5E5;
+}
+
+.removeBasket{
+  background-color: #E5E5E5;
+}
+
+.totalpanier{
+  width: 90%;
+}
+.commanderdiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+.commander{
+  margin-top: 1rem;
+  background-color: black;
+  color: white;
+  width: 50%;
+}

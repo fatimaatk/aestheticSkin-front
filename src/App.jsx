@@ -16,12 +16,18 @@ import Products from "./components/Products.jsx";
 import ProductDetails from "./components/ProductDetails.jsx";
 import Favoris from "./components/Favoris.jsx";
 import Panier from "./components/Panier.jsx";
+import Footer from "./components/Footer.jsx";
+import MonCompte from "./components/Moncompte.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  
+  const [cartItems, setCartItems] = useState(() => {
+    const localItems = localStorage.getItem('items');
+    return localItems ? JSON.parse(localItems) : [];
+  });
 
   const getProducts = () => {
     axios.get('http://localhost:8000/products')
@@ -30,31 +36,42 @@ const App = () => {
     })
 }
 
-const onAdd = (product) => {
+const onAdd = async (product) => {
   const exist = cartItems.find((x) => x.id === product.id);
   if (exist) {
-    setCartItems(
+    await  setCartItems(
       cartItems.map((x) =>
         x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
       )
-    );
+    )
+    localStorage.setItem('items', JSON.stringify(cartItems.map((x) =>
+    x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+  )));
   } else {
-    setCartItems([...cartItems, { ...product, qty: 1 }]);
+    await setCartItems([...cartItems, { ...product, qty: 1 }]);
+    localStorage.setItem('items', JSON.stringify([...cartItems, { ...product, qty: 1 }]));
   }
 };
+
+
 const onRemove = (product) => {
   const exist = cartItems.find((x) => x.id === product.id);
   if (exist.qty === 1) {
+    localStorage.setItem('items', JSON.stringify((cartItems.filter((x) => x.id !== product.id))));
     setCartItems(cartItems.filter((x) => x.id !== product.id));
   } else {
     setCartItems(
       cartItems.map((x) =>
         x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
-      )
-    );
-  }
+        )
+        );
+  } 
 };
+
+
 console.log(products)
+console.log('cartitems', cartItems)
+
 
 useEffect(() => {
   getProducts();
@@ -64,15 +81,17 @@ useEffect(() => {
 
 const getUser = () => {
   const token = localStorage.getItem('token');
+  console.log('token', token)
   if (token) {
     axios
-    .get('http://localhost:8000/admin/', {
+    .get('http://localhost:8000/user', {
         headers: {
           'x-access-token': token,
         },
       })
       .then(({ data }) => {
-        if (data.auth) {
+        console.log('data', data)
+        if (data) {
           setIsAuthenticated(true);
           setUser(JSON.parse(localStorage.getItem('user')));
         }
@@ -83,6 +102,8 @@ const getUser = () => {
   }
 };
 
+console.log(isAuthenticated)
+
 
   return (
     <>
@@ -91,7 +112,7 @@ const getUser = () => {
         <ProductContext.Provider value={{ products : products }}>
           <PanierContext.Provider value={{cartItems: cartItems, products : products, onAdd: onAdd, onRemove: onRemove}}>
           <BrowserRouter>
-            <NavBar isAuthenticated={isAuthenticated}/>
+            <NavBar isAuthenticated={isAuthenticated} cartItems={cartItems} />
           
             <Routes>
               <Route exact path="/" element={<Home />} />
@@ -103,9 +124,11 @@ const getUser = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/admin" element={<ProtectedRoute/>} />
               <Route path="/favoris" element={<Favoris/>} />
+              <Route path="/moncompte" element={<MonCompte/>} />
                 <Route path="/admin" element={<DashboardAdmin />} />
           
             </Routes>
+            <Footer />
           </BrowserRouter>
           </PanierContext.Provider>
           </ProductContext.Provider>

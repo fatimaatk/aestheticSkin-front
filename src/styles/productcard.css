@@ -4,3 +4,22 @@
   justify-content: space-between;
 }
 
+.add{
+  width: 100%;
+  background-color: #E5E5E5;
+}
+
+.add:hover{
+  background-color: black;
+  color: white;
+}
+.productCardDetails{
+  width: 100%;
+}
+.fav{
+  color:  #ad9b9b;
+  font-size: 20px;
+}
+.fav:hover{
+  color: red;
+}

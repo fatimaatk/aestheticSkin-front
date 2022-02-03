@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 export const DashboardAdmin = () => {
     useEffect(() => {
-        axios.get("http://localhost:8000/admin", {
+        axios.get("http://localhost:8000/user", {
             headers: { "x-access-token": localStorage.getItem("token") }
         })
         .then(({ data }) => {console.log(data)})

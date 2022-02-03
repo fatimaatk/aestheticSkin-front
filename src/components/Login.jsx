@@ -16,9 +16,10 @@ const Login = () => {
       axios.post(url, user).then(({ data }) => {
         if (data.error) setError(data.error);
         else {
-          window.location.href = "/admin";
+          console.log(data.token)
           localStorage.setItem("token", data.token);
           localStorage.setItem(`user`, JSON.stringify(data.user));
+          window.location.href = "/";
         }
       });
     } else {
