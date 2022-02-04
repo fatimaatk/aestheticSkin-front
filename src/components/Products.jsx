@@ -1,19 +1,17 @@
 import { useContext } from "react";
 import ProductContext from "../contexts/ProductsContext";
-import ProductCard from "./ProductCard";
 
+import ProductCard from "./ProductCard";
 
 import "./../styles/products.css";
 
 // import Filter from "./Filter";
 
 const Products = () => {
-
+ 
   const { products } = useContext(ProductContext);
-
-  console.log(products);
-
-
+  
+ 
   return (
     <div className="mainProducts">
       <div className="filter">

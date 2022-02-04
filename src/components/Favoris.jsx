@@ -1,55 +1,83 @@
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import "./../styles/favorisContainer.css";
+import { AuthContext } from "../contexts/AuthContext";
+
 import axios from "axios";
 
 const Favoris = () => {
   const params = useParams();
- const [favoris, setFavoris] = useState([]);
-const [error, setError] = useState('');
-
+  const { isAuthenticated } = useContext(AuthContext);
   const { user } = useContext(UserContext);
+
+
+  const [error, setError] = useState("");
+  const [favoris, setFavoris] = useState([], () => {
+    const result = localStorage.getItem("favorites");
+    return result ?? JSON.parse(result);
+  });
+
+
+
   console.log(user);
 
   useEffect(() => {
     getFavoris();
-  }, []);
+    localStorage.setItem("favorites", JSON.stringify(favoris));
+  }, [favoris]);
 
-  const getFavoris = () => {
-    axios.get(`http://localhost:8000/favoris/${user.id}`)
-    .then(response => {
+  const getFavoris = async () => {
+    await axios
+      .get(`http://localhost:8000/favoris/${user.id}`)
+      .then((response) => {
         setFavoris(response.data);
-    })
-    
-  }
-  const handleRemove = () => {
-    axios.delete(`http://localhost:8000/favoris/${user.id}`)
-    .then(({ data }) => {
-      if (data.error) setError(data.error);
-      else {
-        setError('');
-        setFavoris('');
-      }
-    })
-     .then(() => window.location.reload());
-  } 
-  console.log(error)
-  console.log(favoris)
+      });
+  };
+  const handleRemove = (id, e) => {
+    e.preventDefault();
 
-  return(
+     axios
+      .delete(`http://localhost:8000/favoris/${id}`)
+      .then(({ data }) => {
+        if (data.error) setError(data.error);
+        else {
+          setError("");
+
+        }
+      });
+
+  };
+  console.log(favoris);
+
+  return (
     <div className="flex flex-col justify-center items-center mt-5 mb-5">
       <h1 className="mb-4">Mes favoris</h1>
-      {
-        favoris ? 
-        favoris.map((fav) => (
-          <div className="flex items-center justify-center">
-        <p>Numéro du produit : {fav.product_id} </p>
-        <button className="text-xl ml-2"  type='button' onClick={() => handleRemove(fav.product_id)}> Supprimer </button>
-</div>
-        )) : 'loading ...'
-      }
+      {isAuthenticated && user && (
+      <div className="favorisContainer">
+        {favoris
+          ? favoris.map((fav, i) => (
+              <div
+                key={i}
+                className="favoris flex items-center justify-center flex-col"
+              >
+                <img src={fav.image1} alt={fav.title} className="w-full" />
+                <p>{fav.title} </p>
+                <button
+                  className="text-text py-1 px-4  w-60"
+                  type="button"
+                  onClick={() => handleRemove(fav.id)}
+                >
+                  {" "}
+                  Retirer{" "}
+                </button>
+              </div>
+            ))
+          : "loading ..."}
+      </div>
+          )}
     </div>
-  )
-}
+  );
+};
 
 export default Favoris;

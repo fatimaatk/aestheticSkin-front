@@ -18,11 +18,13 @@ import Favoris from "./components/Favoris.jsx";
 import Panier from "./components/Panier.jsx";
 import Footer from "./components/Footer.jsx";
 import MonCompte from "./components/Moncompte.jsx";
+import FavorisContext from './contexts/FavorisContext.js';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState([]);
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
+  const [favoris, setFavoris] = useState(false);
   
   const [cartItems, setCartItems] = useState(() => {
     const localItems = localStorage.getItem('items');
@@ -35,6 +37,14 @@ const App = () => {
         setProducts(response.data)
     })
 }
+
+
+const getFavoris = () => {
+  axios.get(`http://localhost:8000/favoris/${user.id}`)
+  .then(response => {
+      setFavoris(response.data);
+  })
+} 
 
 const onAdd = async (product) => {
   const exist = cartItems.find((x) => x.id === product.id);
@@ -109,7 +119,8 @@ console.log(isAuthenticated)
     <>
       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
         <UserContext.Provider value={{ user, setUser }}>
-        <ProductContext.Provider value={{ products : products }}>
+        <ProductContext.Provider value={{ products : products, getFavoris : getFavoris, favoris:favoris} }>
+        <FavorisContext.Provider  value={{ favoris : favoris, getFavoris : getFavoris} }>
           <PanierContext.Provider value={{cartItems: cartItems, products : products, onAdd: onAdd, onRemove: onRemove}}>
           <BrowserRouter>
             <NavBar isAuthenticated={isAuthenticated} cartItems={cartItems} />
@@ -131,6 +142,7 @@ console.log(isAuthenticated)
             <Footer />
           </BrowserRouter>
           </PanierContext.Provider>
+          </FavorisContext.Provider>
           </ProductContext.Provider>
         </UserContext.Provider>
       </AuthContext.Provider>

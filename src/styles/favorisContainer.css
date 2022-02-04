@@ -1,0 +1,19 @@
+.favorisContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.favoris {
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.supFav {
+  background-color: #e5e5e5;
+}
