@@ -32,9 +32,9 @@ const NavBar = (props) => {
           <Link to="/products">
             <li className="liMenu">PRODUITS</li>
           </Link>
-          <Link to="/lamarque">
+          {/* <Link to="/lamarque">
             <li className="liMenu">LA MARQUE</li>
-          </Link>
+          </Link> */}
           {token ? (
             <div className="flex flex-row">
               <Link to="/moncompte">

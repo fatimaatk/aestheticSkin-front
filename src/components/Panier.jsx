@@ -35,8 +35,10 @@ const Panier = () => {
           </div>
         </div>
       )}
+      
       <div className="mainpanier">
         <div className="paniercomplete">
+       {cartItems.map((item) => (
           <table class="table-auto text-center">
             <thead className="h-2">
               <tr>
@@ -45,8 +47,6 @@ const Panier = () => {
                 <th className="w-20 h-20">Quantité/Prix</th>
               </tr>
             </thead>
-           
-            {cartItems.map((item) => (
               <tbody key={item.id} >
                 <td>
                   <img
@@ -74,8 +74,8 @@ const Panier = () => {
                   {item.qty} x {item.price}€
                 </td>
               </tbody>
-            ))}
           </table>
+            ))}
           {cartItems.length !== 0 && (
             <>
           

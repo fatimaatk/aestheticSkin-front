@@ -22,16 +22,14 @@ const [error, setError] = useState('');
     })
     
   }
-  const handleRemove = (id) => {
-    
-    axios.delete(`http://localhost:8000/favoris/${user.id}`, user.id)
+  const handleRemove = () => {
+    axios.delete(`http://localhost:8000/favoris/${user.id}`)
     .then(({ data }) => {
       if (data.error) setError(data.error);
       else {
         setError('');
         setFavoris('');
       }
-     
     })
      .then(() => window.location.reload());
   } 
