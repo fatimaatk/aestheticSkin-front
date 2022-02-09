@@ -1,72 +1,52 @@
-import { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import { useContext } from "react";
 import "./../styles/favorisContainer.css";
-import { AuthContext } from "../contexts/AuthContext";
-
-import axios from "axios";
+import FavorisContext from "../contexts/FavorisContext";
+import { Link } from "react-router-dom";
+import routine1 from "./../assets/routine1.jpeg";
 
 const Favoris = () => {
-  const params = useParams();
-  const { isAuthenticated } = useContext(AuthContext);
-  const { user } = useContext(UserContext);
+  const { favorites, onRemoveFav } = useContext(FavorisContext);
 
-
-  const [error, setError] = useState("");
-  const [favoris, setFavoris] = useState([], () => {
-    const result = localStorage.getItem("favorites");
-    return result ?? JSON.parse(result);
-  });
-
-
-
-  console.log(user);
-
-  useEffect(() => {
-    getFavoris();
-    localStorage.setItem("favorites", JSON.stringify(favoris));
-  }, [favoris]);
-
-  const getFavoris = async () => {
-    await axios
-      .get(`http://localhost:8000/favoris/${user.id}`)
-      .then((response) => {
-        setFavoris(response.data);
-      });
-  };
-  const handleRemove = (id, e) => {
-    e.preventDefault();
-
-     axios
-      .delete(`http://localhost:8000/favoris/${id}`)
-      .then(({ data }) => {
-        if (data.error) setError(data.error);
-        else {
-          setError("");
-
-        }
-      });
-
-  };
-  console.log(favoris);
-
+  console.log(favorites)
   return (
     <div className="flex flex-col justify-center items-center mt-5 mb-5">
-      <h1 className="mb-4">Mes favoris</h1>
-      {isAuthenticated && user && (
-      <div className="favorisContainer">
-        {favoris
-          ? favoris.map((fav, i) => (
-              <div
-                key={i}
-                className="favoris flex items-center justify-center flex-col"
-              >
-                <img src={fav.image1} alt={fav.title} className="w-full" />
+      <h1 className="text-xl">MES FAVORIS</h1>
+      <hr />
+      {favorites.length === 0 && (
+        <div>
+          <div className="flex justify-center items-center mt-5">
+            <img src={routine1} alt="Marque" className="w-1/4" />
+            <div className="flex flex-col items-end">
+              <p className="ml-4">
+                Vous n'avez pas de favoris.
+                <br />
+                Découvrez dès maintenant nos routines et faites vous livrer en
+                France et en Europe
+              </p>
+              <Link to="/products">
+                <button className="mt-4 bg-black text-white py-2 px-4  inline-flex items-center ">
+                  Nos produits
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="favorisContainer mt-4">
+        {favorites
+          ? favorites.map((fav, i) => (
+            <div
+            key={i}
+            className="favoris flex items-center justify-center flex-col"
+            >
+                 <Link to={`/products/${fav.id}`}>
+                  <img src={fav.image1} alt={fav.title} className="w-full" />
+                </Link>
                 <p>{fav.title} </p>
                 <button
                   className="text-text py-1 px-4  w-60"
                   type="button"
-                  onClick={() => handleRemove(fav.id)}
+                  onClick={() => onRemoveFav(fav)}
                 >
                   {" "}
                   Retirer{" "}
@@ -75,7 +55,6 @@ const Favoris = () => {
             ))
           : "loading ..."}
       </div>
-          )}
     </div>
   );
 };

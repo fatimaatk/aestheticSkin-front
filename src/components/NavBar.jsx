@@ -32,9 +32,6 @@ const NavBar = (props) => {
           <Link to="/products">
             <li className="liMenu">PRODUITS</li>
           </Link>
-          {/* <Link to="/lamarque">
-            <li className="liMenu">LA MARQUE</li>
-          </Link> */}
           {token ? (
             <div className="flex flex-row">
               <Link to="/moncompte">
@@ -42,15 +39,13 @@ const NavBar = (props) => {
               </Link>
             </div>
           ) : null}
-           {token ? (
+        
             <div className="flex flex-row">
               <Link to="/favoris">
               < BsHeart className="text-2xl" />
             </Link>
             </div>
-          ) : (
-            null
-          )}
+        
           <Link to="/monpanier">
             <li className="liMenu">
               {cartItems.length > 0 ? (

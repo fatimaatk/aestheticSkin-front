@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-// import { AiOutlineArrowLeft } from "react-icons/ai";
-import { FaStar } from "react-icons/fa";
-import PanierContext from '../contexts/PanierContext';
+import { BsHeartFill } from "react-icons/bs";
+import PanierContext from "../contexts/PanierContext";
 import "./../styles/details.css";
+import ReactStars from "react-rating-stars-component";
+import FavorisContext from "../contexts/FavorisContext";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -13,7 +14,7 @@ const ProductDetails = () => {
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
   const { cartItems, onAdd } = useContext(PanierContext);
-
+  const { favorites, handleFavoris } = useContext(FavorisContext);
 
   useEffect(() => {
     getProduct();
@@ -21,13 +22,10 @@ const ProductDetails = () => {
     getRates();
   }, [params.id]);
 
-
-  console.log('panier', cartItems)
-
   const getProduct = () => {
     axios
       .get(`http://localhost:8000/products/${params.id}`)
-      .then((response) => { 
+      .then((response) => {
         setProduct(response.data);
       });
   };
@@ -48,7 +46,13 @@ const ProductDetails = () => {
       });
   };
 
-  console.log(cartItems)
+
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+   
+
+console.log(rates)
 
   return (
     <div className="mainProduct">
@@ -78,21 +82,51 @@ const ProductDetails = () => {
           </div>
 
           <div className="detailProduct">
-            <h1 className="detailTitle">{product.title}</h1>
+            <h1 className="detailTitle">
+              {product.title}
+              <BsHeartFill
+                className={
+                  favorites.find((x) => x.id === product.id)
+                    ? "isFavorite"
+                    : "notFavorite"
+                }
+                onClick={() => {
+                  handleFavoris(product);
+                }}
+                type="button"
+              />
+            </h1>
+
             <p className="detailCategory">{product.category}</p>
+
             <p className="detailDescription">{product.description}</p>
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
             <div className="stars mt-2">
-              <p>
-                Note clients : <br />
-                {rates
-                  ? rates.map((rate) => <p>{rate.rate_id}/5</p>)
-                  : "Loading..."}
-              </p>
+            {rates
+            ? rates.map((rate, i) => 
+            <div key={i}>
+            <p>Client : 
+              
+            <ReactStars
+    count={5}
+    onChange={ratingChanged}
+    size={24}
+    activeColor="#ffd700"
+    value={rate.rate_id}
+  />
+              
+              {}</p>
+            
+            
+            
+            </div>)
+            : "Loading..."}
             </div>
-            <button className="addCart" onClick={() => onAdd(product)}>AJOUTER AU PANIER</button>
+            <button className="addCart" onClick={() => onAdd(product)}>
+              AJOUTER AU PANIER
+            </button>
           </div>
         </div>
       </div>
@@ -106,7 +140,10 @@ const ProductDetails = () => {
         <div className="commentaires">
           <p className="font-semibold">Avis Clients :</p>
           {comments
-            ? comments.map((comment) => <p>Client : {comment.comment}</p>)
+            ? comments.map((comment, i) => 
+            <div key={i}>
+            <p>Client : {comment.comment}</p>
+            </div>)
             : "Loading..."}
         </div>
       </div>

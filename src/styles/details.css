@@ -18,6 +18,12 @@
   justify-content: center;
 }
 
+.detailTitle{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5rem;
+}
+
 .productImage {
   display: flex;
   justify-content: end;

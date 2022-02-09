@@ -1,45 +1,18 @@
 import "./../styles/productcard.css";
-import { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
 import PanierContext from "../contexts/PanierContext";
-import { UserContext } from "../contexts/UserContext";
 import { BsHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
+import FavorisContext from "../contexts/FavorisContext";
 
 const ProductCard = ({ product }) => {
-  const params = useParams();
-  const [favoris, setFavoris] = useState([]);
- const [error, setError] = useState('');
-  const {  onAdd } = useContext(PanierContext);
-  const { user } = useContext(UserContext);
+  const { onAdd } = useContext(PanierContext);
+  const {
+    favorites,
+    handleFavoris
+  } = useContext(FavorisContext);
 
 
-  useEffect(() => {
-    getFavoris();
-  }, []);
-
-  const getFavoris = () => {
-    axios.get(`http://localhost:8000/favoris/${user.id}`)
-    .then(response => {
-        setFavoris(response.data);
-    })
-  }
-  const handleRemove = () => {
-    axios.delete(`http://localhost:8000/favoris/${user.id}`)
-    .then(({ data }) => {
-      if (data.error) setError(data.error);
-      else {
-        setError('');
-        setFavoris('');
-      }
-    })
-     .then(() => window.location.reload());
-  } 
-
-  
-console.log('favoris', favoris)
   return (
     <div className="productCard w-60 mb-4">
       <Link to={`/products/${product.id}`}>
@@ -48,20 +21,29 @@ console.log('favoris', favoris)
       <div className="productCardInfos">
         <div className="productCardDetails">
           <div className="flex justify-between">
-          <div className="flexflex-col">
-            <p className="text-xs font-light	text-slate-500">
-              {product.category}{" "}
-            </p>
-          <h1 className="">{product.title}</h1>
+            <div className="flexflex-col">
+              <p className="text-xs font-light	text-slate-500">
+                {product.category}{" "}
+              </p>
+              <h1 className="">{product.title}</h1>
 
-          <p>{product.price}€ </p>
-          </div>
-        
-            <BsHeartFill className="fav m-1" />
+              <p>{product.price}€ </p>
             </div>
-            <button onClick={() => handleRemove(product)} className="add">
-            Supprimer
-          </button>
+
+            <BsHeartFill
+              className={
+                favorites.find((x) => x.id === product.id)
+                  ? "isFavorite"
+                  : "notFavorite"
+              }
+              onClick={() => {
+                handleFavoris(product)
+              }}
+              type='button'
+
+            />
+          </div>
+         
           <button onClick={() => onAdd(product)} className="add">
             Ajout rapide
           </button>

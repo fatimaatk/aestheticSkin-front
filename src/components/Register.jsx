@@ -32,7 +32,6 @@ const Register = () => {
 
 
 
-  console.log(error);
   return (
     <div className="register-block">
       <div className="register">

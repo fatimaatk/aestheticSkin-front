@@ -11,8 +11,8 @@ const Footer = () => {
             promotionnels avantageux.
           </p>
           <div className="newsletter2">
-          <input class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Votre email"/>
-          <button class="bg-transparent  text-gray-600 font-semibold hover:text-black py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={() => alert("La souscription n'est pas possible. Ceci est un site fictif.")}>
+          <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Votre email"/>
+          <button className="bg-transparent  text-gray-600 font-semibold hover:text-black py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={() => alert("La souscription n'est pas possible. Ceci est un site fictif.")}>
   Souscrire
 </button>
           </div>

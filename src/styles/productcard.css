@@ -16,10 +16,19 @@
 .productCardDetails{
   width: 100%;
 }
-.fav{
+.notFavorite{
   color:  #ad9b9b;
   font-size: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
 }
-.fav:hover{
+
+.notFavorite:hover{
+  color:  red;
+}
+.isFavorite{
   color: red;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-right: 5px;
 }

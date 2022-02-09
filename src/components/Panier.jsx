@@ -10,7 +10,6 @@ const Panier = () => {
   const shippingPrice = itemsPrice > 50 ? 0 : 4.5;
   const totalPrice = itemsPrice + shippingPrice;
 
-  console.log("panier", cartItems);
 
   return (
     <div className="flex flex-column">
@@ -38,7 +37,6 @@ const Panier = () => {
       
       <div className="mainpanier">
         <div className="paniercomplete">
-       {cartItems.map((item) => (
           <table class="table-auto text-center">
             <thead className="h-2">
               <tr>
@@ -47,6 +45,7 @@ const Panier = () => {
                 <th className="w-20 h-20">Quantité/Prix</th>
               </tr>
             </thead>
+       {cartItems.map((item) => (
               <tbody key={item.id} >
                 <td>
                   <img
@@ -74,8 +73,8 @@ const Panier = () => {
                   {item.qty} x {item.price}€
                 </td>
               </tbody>
-          </table>
             ))}
+            </table>
           {cartItems.length !== 0 && (
             <>
           
