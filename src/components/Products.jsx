@@ -1,7 +1,6 @@
 import ProductCard from "./ProductCard";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
-import { IoRadioButtonOff } from "react-icons/io";
+import { useEffect, useState } from "react";
 import "./../styles/products.css";
 
 // import Filter from "./Filter";
@@ -39,7 +38,6 @@ const Products = () => {
     setTextureIsSelected(isTextureSelected);
   }, []);
 
-  console.log(textureIsSelected);
   const getProducts = () => {
     axios.get("http://localhost:8000/products").then((response) => {
       setProducts(response.data);
@@ -79,10 +77,6 @@ const Products = () => {
       arrayTexture.push(textureIsSelected[key]);
     }
   }
-
-  console.log(arrayTexture);
-
-  const getProductsFiltered = (products) => {};
 
   return (
     <div className="mainProducts">
@@ -134,7 +128,6 @@ const Products = () => {
       <div className="productsList grid grid-rows-2 grid-flow-col gap-2 ml-6">
         {arrayTexture.includes(true)
           ? products
-
               .filter((product) => textureIsSelected[product.texture_id])
               .map((product) => (
                 <ProductCard key={product.id} product={product} />

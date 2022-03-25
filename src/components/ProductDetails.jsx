@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { BsHeartFill } from "react-icons/bs";
+import { AiFillStar } from "react-icons/ai";
 import PanierContext from "../contexts/PanierContext";
 import "./../styles/details.css";
-import ReactStars from "react-rating-stars-component";
 import FavorisContext from "../contexts/FavorisContext";
 
 const ProductDetails = () => {
@@ -46,18 +46,20 @@ const ProductDetails = () => {
       });
   };
 
+  //calcul de la moyenne des etoiles
+  const allRates = rates.map((rate) => rate.rate_id);
 
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
-   
+  const initialValue = 0;
+  const sumWithInitial = allRates.reduce(
+    (previousValue, currentValue) => previousValue + currentValue,
+    initialValue
+  );
 
-console.log(rates)
-
+  const result = Math.round(sumWithInitial / allRates.length);
   return (
     <div className="mainProduct">
-      <div className="backProducts">
-        <Link to="/products">
+      <div className=" backProducts">
+        <Link to="/products" className="hover:color-black">
           <p>Revenir à la page produits</p>
         </Link>
       </div>
@@ -103,26 +105,15 @@ console.log(rates)
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
-            <div className="stars mt-2">
-            {rates
-            ? rates.map((rate, i) => 
-            <div key={i}>
-            <p>Client : 
-              
-            <ReactStars
-    count={5}
-    onChange={ratingChanged}
-    size={24}
-    activeColor="#ffd700"
-    value={rate.rate_id}
-  />
-              
-              {}</p>
-            
-            
-            
-            </div>)
-            : "Loading..."}
+            <div className="stars mt-2 flex">
+              {Array.from({ length: result }, (_, i) => (
+                <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
+              ))}
+              {result < 5
+                ? Array.from({ length: 5 - result }, (_, i) => (
+                    <AiFillStar key={i} color={"#e3e3e3"} fontSize={"1.5rem"} />
+                  ))
+                : null}
             </div>
             <button className="addCart" onClick={() => onAdd(product)}>
               AJOUTER AU PANIER
@@ -140,10 +131,11 @@ console.log(rates)
         <div className="commentaires">
           <p className="font-semibold">Avis Clients :</p>
           {comments
-            ? comments.map((comment, i) => 
-            <div key={i}>
-            <p>Client : {comment.comment}</p>
-            </div>)
+            ? comments.map((comment, i) => (
+                <div key={i}>
+                  <p>Client : {comment.comment}</p>
+                </div>
+              ))
             : "Loading..."}
         </div>
       </div>

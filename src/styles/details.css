@@ -6,19 +6,26 @@
   align-content: center;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.backProducts:hover {
   text-decoration: underline;
 }
-.detaildGlobal{
+a:hover {
+  color: black;
+}
+.detaildGlobal {
   display: flex;
   justify-content: center;
 }
-.detailImage{
+.detailImage {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.detailTitle{
+.detailTitle {
   display: flex;
   justify-content: space-between;
   padding-right: 5rem;
@@ -28,7 +35,7 @@
   display: flex;
   justify-content: end;
   gap: 20px;
-  flex:2;
+  flex: 2;
   margin-right: 2rem;
 }
 
@@ -38,7 +45,6 @@
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 4px;
   grid-row-gap: 7px;
-
 }
 
 .image2 {
@@ -48,57 +54,56 @@
   grid-area: 2 / 1 / 3 / 2;
 }
 
-.image1{
+.image1 {
   width: 16rem;
   height: 24.5rem;
 }
 
-.detailProduct{
-flex:2;
+.detailProduct {
+  flex: 2;
 }
-.detailTitle{
+.detailTitle {
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.detailCategory{
+.detailCategory {
   color: grey;
 }
 
-.detailDescription{
+.detailDescription {
   margin-top: 2rem;
   width: 50%;
 }
 
-.detailContenance{
+.detailContenance {
   margin-top: 2rem;
 }
 
-.addCart{
-  background-color: #E5E5E5;
+.addCart {
+  background-color: #e5e5e5;
   margin-top: 1rem;
   padding: 1rem;
 }
 
-.ingredientsContainer{
+.ingredientsContainer {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
- 
 }
 
-.ingredientsdetails{
+.ingredientsdetails {
   width: 50%;
 }
 
-.listeCommentaire{
+.listeCommentaire {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
 }
 
-.commentaires{
+.commentaires {
   display: flex;
   flex-direction: column;
   justify-content: center;
