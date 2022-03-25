@@ -10,9 +10,36 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [texture, setTexture] = useState();
-  const [toggleCategories, setToggleCategories] = useState(false);
 
+  const [categoryIsSelected, setCategoryIsSelected] = useState({});
+  const [textureIsSelected, setTextureIsSelected] = useState({});
 
+  useEffect(() => {
+    const isCategorySelected = {};
+    // //ici je récupère mes id de catégories & de textures
+    const categoryNames = products.map((product) => product.category_id);
+    //ici je récupère l'id de category correspondant à chaque produit
+    categoryNames.forEach(
+      (categoryName) => (isCategorySelected[categoryName] = false)
+    );
+    //ici je déclare si c'est sélectionné ou non
+    setCategoryIsSelected(isCategorySelected);
+  }, []);
+
+  useEffect(() => {
+    const isTextureSelected = {};
+    // //ici je récupère mes id de catégories & de textures
+    const textureNames = products.map((product) => product.texture_id);
+    //ici je récupère l'id de category correspondant à chaque produit
+    textureNames.forEach((textureName) =>
+      textureName != null ? (isTextureSelected[textureName] = false) : ""
+    );
+
+    //ici je déclare si c'est sélectionné ou non
+    setTextureIsSelected(isTextureSelected);
+  }, []);
+
+  console.log(textureIsSelected);
   const getProducts = () => {
     axios.get("http://localhost:8000/products").then((response) => {
       setProducts(response.data);
@@ -37,19 +64,25 @@ const Products = () => {
     getTexture();
   }, []);
 
- 
+  const arrayCategory = [];
 
-  // const handleChangeCategory = (id) => {
-  //   setProducts(products.filter((product) => product.category_id === id) && setToggleCategories(toggleCategories));
-  // };
+  for (let key in categoryIsSelected) {
+    if (categoryIsSelected.hasOwnProperty(key)) {
+      arrayCategory.push(categoryIsSelected[key]);
+    }
+  }
 
-  const handleChangeTexture = (id) => {
-    setProducts(products.filter((product) => product.texture_id === id)) && setToggleCategories(!toggleCategories);
-  };
+  const arrayTexture = [];
 
-  const handleToggle = () => {
-    setToggleCategories(!toggleCategories);
-  };
+  for (let key in textureIsSelected) {
+    if (textureIsSelected.hasOwnProperty(key)) {
+      arrayTexture.push(textureIsSelected[key]);
+    }
+  }
+
+  console.log(arrayTexture);
+
+  const getProductsFiltered = (products) => {};
 
   return (
     <div className="mainProducts">
@@ -58,16 +91,19 @@ const Products = () => {
         <ul className="filtercategorie mt-4">
           <h2 className="font-bold text-lg">CATEGORIES</h2>
           {category
-            ? category.map((e, i) => (
+            ? category.map((category, i) => (
                 <div className="flex items-center justify-between" key={i}>
-                  <label className="uppercase">{e.title}</label>
+                  <label className="uppercase">{category.title}</label>
                   <input
                     type="checkbox"
                     id="textures"
                     name="textures"
-                    onClick={() => {
-                      handleToggle();
-                    }}
+                    onClick={() =>
+                      setCategoryIsSelected({
+                        ...categoryIsSelected,
+                        [category.id]: !categoryIsSelected[category.id],
+                      })
+                    }
                   />
                 </div>
               ))
@@ -76,16 +112,19 @@ const Products = () => {
         <div className="filtercategorie mt-4">
           <h2 className="font-bold text-lg">TEXTURE</h2>
           {texture
-            ? texture.map((e, i) => (
+            ? texture.map((texture, i) => (
                 <div className="flex items-center justify-between" key={i}>
-                  <label className="uppercase">{e.title}</label>
+                  <label className="uppercase">{texture.title}</label>
                   <input
                     type="checkbox"
                     id="textures"
                     name="textures"
-                    onChange={() => {
-                      handleChangeTexture(e.id);
-                    }}
+                    onClick={() =>
+                      setTextureIsSelected({
+                        ...textureIsSelected,
+                        [texture.id]: !textureIsSelected[texture.id],
+                      })
+                    }
                   />
                 </div>
               ))
@@ -93,12 +132,32 @@ const Products = () => {
         </div>
       </div>
       <div className="productsList grid grid-rows-2 grid-flow-col gap-2 ml-6">
-        {products
-          .filter((product)=> !toggleCategories || product.category_id === category.id)
-          .map((product) => (
+        {arrayTexture.includes(true)
+          ? products
+
+              .filter((product) => textureIsSelected[product.texture_id])
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+          : arrayCategory.includes(true)
+          ? products
+              .filter((product) => categoryIsSelected[product.category_id])
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+          : arrayCategory.includes(true) && arrayTexture.includes(true)
+          ? products
+              .filter(
+                (product) =>
+                  categoryIsSelected[product.category_id] &&
+                  textureIsSelected[product.texture_id]
+              )
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+          : products.map((product) => (
               <ProductCard key={product.id} product={product} />
-            ))
-         }
+            ))}
       </div>
     </div>
   );
