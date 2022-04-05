@@ -21,7 +21,7 @@ import Footer from "./components/Footer.jsx";
 import MonCompte from "./components/Moncompte.jsx";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
 
@@ -66,7 +66,7 @@ const App = () => {
       );
     }
   };
-//retirer des favoris
+  //retirer des favoris
   const onRemoveFav = (product) => {
     const exist = favorites.find((x) => x.id === product.id);
     if (exist) {
@@ -79,13 +79,13 @@ const App = () => {
   };
 
   //double méthode
-  const handleFavoris=(product)=> {
-    if(favorites.find((x) => x.id === product.id)){
-      onRemoveFav(product)
+  const handleFavoris = (product) => {
+    if (favorites.find((x) => x.id === product.id)) {
+      onRemoveFav(product);
     } else {
-      addFavorites(product)
+      addFavorites(product);
     }
-  }
+  };
 
   useEffect(() => {
     localStorage.setItem("favoris", JSON.stringify(favorites));
@@ -151,23 +151,21 @@ const App = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:8000/security/user/account", {
+        .get("http://localhost:8000/security/user-is-auth", {
           headers: {
-            "x-access-token": token,
+            "x-acces-token": token,
           },
         })
         .then(({ data }) => {
-          if (data) {
-            setIsAuthenticated(true);
-            setUser(JSON.parse(localStorage.getItem("user")));
-          }
+          console.log("is auth", data);
         })
         .catch(() => {
-          localStorage.removeItem("token");
+          console.log("is NOT auth");
         });
     }
   };
 
+  //console.log("test", isAuthenticated);
   return (
     <>
       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
@@ -183,7 +181,7 @@ const App = () => {
                 favorites: favorites,
                 isFavorite: isFavorite,
                 onRemoveFav: onRemoveFav,
-                handleFavoris : handleFavoris,
+                handleFavoris: handleFavoris,
               }}
             >
               <PanierContext.Provider

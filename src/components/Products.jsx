@@ -2,6 +2,7 @@ import ProductCard from "./ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./../styles/products.css";
+import Tri from "./Tri";
 
 // import Filter from "./Filter";
 
@@ -81,8 +82,8 @@ const Products = () => {
   return (
     <div className="mainProducts">
       <div className="filter">
-        <h1 className="font-bold p-3 text-xl">FILTRES </h1>
-        <ul className="filtercategorie mt-4">
+        <h1 className="pl-8 text-xl">FILTRES </h1>
+        <ul className="filtercategorie mt-20">
           <h2 className="font-bold text-lg">CATEGORIES</h2>
           {category
             ? category.map((category, i) => (
@@ -125,32 +126,42 @@ const Products = () => {
             : null}
         </div>
       </div>
-      <div className="productsList grid grid-rows-2 grid-flow-col gap-2 ml-6">
-        {arrayTexture.includes(true)
-          ? products
-              .filter((product) => textureIsSelected[product.texture_id])
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-          : arrayCategory.includes(true)
-          ? products
-              .filter((product) => categoryIsSelected[product.category_id])
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-          : arrayCategory.includes(true) && arrayTexture.includes(true)
-          ? products
-              .filter(
-                (product) =>
-                  categoryIsSelected[product.category_id] &&
-                  textureIsSelected[product.texture_id]
-              )
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-          : products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+      <div className="productListMain ">
+        <div className="flex justify-center flex-col">
+          <div className="ml-24 mr-36 flex justify-between">
+            <h1 className="text-2xl font-bold">TOUS LES PRODUITS</h1>
+
+            <Tri />
+          </div>
+
+          <div className="productsList  grid grid-rows-2 grid-flow-col gap-4">
+            {arrayTexture.includes(true)
+              ? products
+                  .filter((product) => textureIsSelected[product.texture_id])
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              : arrayCategory.includes(true)
+              ? products
+                  .filter((product) => categoryIsSelected[product.category_id])
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              : arrayCategory.includes(true) && arrayTexture.includes(true)
+              ? products
+                  .filter(
+                    (product) =>
+                      categoryIsSelected[product.category_id] &&
+                      textureIsSelected[product.texture_id]
+                  )
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              : products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+          </div>
+        </div>
       </div>
     </div>
   );

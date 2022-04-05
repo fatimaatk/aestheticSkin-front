@@ -7,7 +7,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +15,6 @@ const Login = () => {
       axios.post(url, user).then(({ data }) => {
         if (data.error) setError(data.error);
         else {
-          console.log(data.token)
           localStorage.setItem("token", data.token);
           localStorage.setItem(`user`, JSON.stringify(data.user));
           window.location.href = "/";
@@ -29,7 +27,9 @@ const Login = () => {
 
   return (
     <div className="login-block">
-      <h2 className="register-h2 mt-1 mb-2 text-center w-full z-10 font-semibold">CONNEXION</h2>
+      <h2 className="register-h2 mt-1 mb-2 text-center w-full z-10 font-semibold">
+        CONNEXION
+      </h2>
       <div className="login">
         <form className="login-form" onSubmit={handleSubmit}>
           {error && <p className="login-error">{error}</p>}
