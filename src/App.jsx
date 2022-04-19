@@ -149,23 +149,28 @@ const App = () => {
 
   const getUser = () => {
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token) {
       axios
         .get("http://localhost:8000/security/user-is-auth", {
-          headers: {
-            "x-acces-token": token,
-          },
+          access_token: token,
         })
         .then(({ data }) => {
-          console.log("is auth", data);
-        })
-        .catch(() => {
-          console.log("is NOT auth");
+          console.log(data);
+          //   if (data) {
+          //     setIsAuthenticated(true);
+          //     setUser(JSON.parse(localStorage.getItem("user")));
+          //     console.log("user is authenticated");
+          //   }
+          // })
+          // .catch(() => {
+          //   console.log("user is not authenticated");
+          //   //localStorage.removeItem("token");
+          // });
         });
     }
   };
 
-  //console.log("test", isAuthenticated);
   return (
     <>
       <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

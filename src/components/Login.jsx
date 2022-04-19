@@ -13,6 +13,7 @@ const Login = () => {
     if (email && password) {
       const user = { email: email, password: password };
       axios.post(url, user).then(({ data }) => {
+        console.log("data", data);
         if (data.error) setError(data.error);
         else {
           localStorage.setItem("token", data.token);
