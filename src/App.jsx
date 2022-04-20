@@ -20,18 +20,23 @@ import Favoris from "./components/Favoris.jsx";
 import Panier from "./components/Panier.jsx";
 import Footer from "./components/Footer.jsx";
 import MonCompte from "./components/Moncompte.jsx";
+import DashboardAccount from "./components/Dashboard/DashboardAccount.jsx";
+import DashboardCommentaires from "./components/Dashboard/DashboardCommentaires.jsx";
+import DashboardProductsList from "./components/Dashboard/DashboardProductsList.jsx";
+import DashboardProduct from "./components/Dashboard/DashboardProduct.jsx";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "./Store/ProductsSlice.js";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const { products, loading } = useSelector((state) => state.products);
 
-  //database
-  const getProducts = () => {
-    axios.get("http://localhost:8000/products").then((response) => {
-      setProducts(response.data);
-    });
-  };
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
   //favoris localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -219,6 +224,22 @@ const App = () => {
                   <Route path="/login" element={<Login />} />
                   <Route path="/admin" element={<ProtectedRoute />}>
                     <Route path="dashboard" element={<DashboardAdmin />} />
+                    <Route
+                      path="dashboard/products"
+                      element={<DashboardProductsList />}
+                    />
+                    <Route
+                      path="dashboard/product/:id"
+                      element={<DashboardProduct />}
+                    />
+                    <Route
+                      path="dashboard/commentaires"
+                      element={<DashboardCommentaires />}
+                    />
+                    <Route
+                      path="dashboard/comptes"
+                      element={<DashboardAccount />}
+                    />
                   </Route>
                   <Route path="/monpanier" element={<Panier />} />
                   <Route path="/register" element={<Register />} />

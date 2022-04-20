@@ -1,12 +1,18 @@
 import axios from "axios";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import NavDashboard from "./Dashboard/NavDashboard";
+import DashboardHome from "./Dashboard/DashboardHome";
 
 const DashboardAdmin = () => {
-  console.log("coucou");
   return (
-    <div className="text-center">
-      <h1>Welcome Admin</h1>
+    <div className="min-h-full">
+      <header className="bg-white shadow">
+        <NavDashboard />
+      </header>
+      <main>
+        <DashboardHome />
+      </main>
     </div>
   );
 };
