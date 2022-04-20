@@ -1,16 +1,14 @@
-import axios from "axios"
-import { useEffect } from "react"
+import axios from "axios";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 
-export const DashboardAdmin = () => {
-    useEffect(() => {
-        axios.get("http://localhost:8000/user", {
-            headers: { "x-access-token": localStorage.getItem("token") }
-        })
-        .then(({ data }) => {console.log(data)})
-    })
-    return (
-        <div className="text-center">
-            <h1>Welcome Admin</h1>
-        </div>
-    )
-}
+const DashboardAdmin = () => {
+  console.log("coucou");
+  return (
+    <div className="text-center">
+      <h1>Welcome Admin</h1>
+    </div>
+  );
+};
+
+export default DashboardAdmin;

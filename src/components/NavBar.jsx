@@ -1,10 +1,17 @@
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { UserContext } from "../contexts/UserContext";
 import { BsCart, BsCartCheck, BsHeart } from "react-icons/bs";
 
 const NavBar = (props) => {
-  const { isAuthenticated, cartItems } = props;
+  const { cartItems, isAuthenticated } = props;
+
+  const token = Cookies.get("token");
+  const tokenObj = token && JSON.parse(token);
+
   const logout = () => {
     Cookies.remove("token");
     window.location.href = "/";
@@ -57,6 +64,14 @@ const NavBar = (props) => {
               )}
             </li>
           </Link>
+
+          {isAuthenticated && tokenObj.role === "1" && (
+            <div className="flex flex-row">
+              <Link to="/admin/dashboard">
+                <li className="liMenu">DASHBOARD</li>
+              </Link>{" "}
+            </div>
+          )}
 
           {isAuthenticated ? (
             <div className="flex flex-row">

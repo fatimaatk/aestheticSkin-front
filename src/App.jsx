@@ -7,11 +7,11 @@ import PanierContext from "./contexts/PanierContext.js";
 import { Home } from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
-import { DashboardAdmin } from "./components/DashboardAdmin.jsx";
+import DashboardAdmin from "./components/DashboardAdmin.jsx";
 import { AuthContext } from "./contexts/AuthContext.js";
 import { UserContext } from "./contexts/UserContext.js";
 import FavorisContext from "./contexts/FavorisContext.js";
-import { ProtectedRoute } from "./protected/ProtectedRoute.js";
+import ProtectedRoute from "./protected/ProtectedRoute.jsx";
 import Connection from "./components/Connection.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Products from "./components/Products.jsx";
@@ -144,8 +144,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    getProducts();
     getUser();
+    getProducts();
   }, []);
 
   const getUser = () => {
@@ -197,37 +197,35 @@ const App = () => {
                   onRemove: onRemove,
                 }}
               >
-                <BrowserRouter>
-                  <NavBar
-                    setIsAuthenticated={setIsAuthenticated}
-                    isAuthenticated={isAuthenticated}
-                    cartItems={cartItems}
+                <NavBar
+                  user={user}
+                  isAuthenticated={isAuthenticated}
+                  cartItems={cartItems}
+                />
+
+                <Routes>
+                  <Route exact path="/" element={<Home />} />
+                  <Route
+                    exact
+                    path="/products"
+                    element={<Products cartItems={cartItems} />}
                   />
-
-                  <Routes>
-                    <Route exact path="/" element={<Home />} />
-                    <Route
-                      exact
-                      path="/products"
-                      element={<Products cartItems={cartItems} />}
-                    />
-                    <Route
-                      exact
-                      path="/products/:id"
-                      element={<ProductDetails cartItems={cartItems} />}
-                    />
-                    <Route path="/connexion" element={<Connection />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/monpanier" element={<Panier />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/admin" element={<ProtectedRoute />} />
-                    <Route path="/favoris" element={<Favoris />} />
-                    <Route path="/moncompte" element={<MonCompte />} />
-
-                    <Route path="/admin" element={<DashboardAdmin />} />
-                  </Routes>
-                  <Footer />
-                </BrowserRouter>
+                  <Route
+                    exact
+                    path="/products/:id"
+                    element={<ProductDetails cartItems={cartItems} />}
+                  />
+                  <Route path="/connexion" element={<Connection />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/admin" element={<ProtectedRoute />}>
+                    <Route path="dashboard" element={<DashboardAdmin />} />
+                  </Route>
+                  <Route path="/monpanier" element={<Panier />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/favoris" element={<Favoris />} />
+                  <Route path="/moncompte" element={<MonCompte />} />
+                </Routes>
+                <Footer />
               </PanierContext.Provider>
             </FavorisContext.Provider>
           </ProductContext.Provider>

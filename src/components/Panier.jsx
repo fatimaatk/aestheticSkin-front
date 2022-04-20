@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import PanierContext from "../contexts/PanierContext";
+import { AuthContext } from "../contexts/AuthContext";
+import { UserContext } from "../contexts/UserContext";
 import brand4 from "./../assets/brand4.jpeg";
 import "./../styles/panier.css";
 
@@ -10,6 +12,10 @@ const Panier = () => {
   const shippingPrice = itemsPrice > 50 ? 0 : 4.5;
   const totalPrice = itemsPrice + shippingPrice;
 
+  const isAuthenticated = useContext(AuthContext);
+  const user = useContext(UserContext);
+  console.log(isAuthenticated);
+  console.log(user);
 
   return (
     <div className="flex flex-column">
@@ -34,7 +40,7 @@ const Panier = () => {
           </div>
         </div>
       )}
-      
+
       <div className="mainpanier">
         <div className="paniercomplete">
           <table class="table-auto text-center">
@@ -45,8 +51,8 @@ const Panier = () => {
                 <th className="w-20 h-20">Quantité/Prix</th>
               </tr>
             </thead>
-       {cartItems.map((item) => (
-              <tbody key={item.id} >
+            {cartItems.map((item) => (
+              <tbody key={item.id}>
                 <td>
                   <img
                     src={item.image1}
@@ -74,42 +80,47 @@ const Panier = () => {
                 </td>
               </tbody>
             ))}
-            </table>
+          </table>
           {cartItems.length !== 0 && (
             <>
-          
               <div className="totalpanier">
-
-              <div className="row justify-end mt-2">
-                <div className="col-2">Sous-total</div>
-                <div className="col-1 text-right">{itemsPrice.toFixed(2)}€</div>
-              </div>
-
-              <div className="row justify-end ">
-                <div className="col-2">Livraison</div>
-                <div className="col-1 text-right">
-                  {shippingPrice === 0 ? (
-                    <p>Offerte</p>
-                  ) : (
-                    <p>{shippingPrice.toFixed(2)}€</p>
-                  )}
+                <div className="row justify-end mt-2">
+                  <div className="col-2">Sous-total</div>
+                  <div className="col-1 text-right">
+                    {itemsPrice.toFixed(2)}€
+                  </div>
                 </div>
-              </div>
 
-              <div className="row justify-end">
-                <div className="col-2">
-                  <strong>Prix total</strong>
+                <div className="row justify-end ">
+                  <div className="col-2">Livraison</div>
+                  <div className="col-1 text-right">
+                    {shippingPrice === 0 ? (
+                      <p>Offerte</p>
+                    ) : (
+                      <p>{shippingPrice.toFixed(2)}€</p>
+                    )}
+                  </div>
                 </div>
-                <div className="col-1 text-right">
-                  <strong>{totalPrice.toFixed(2)}€</strong>
+
+                <div className="row justify-end">
+                  <div className="col-2">
+                    <strong>Prix total</strong>
+                  </div>
+                  <div className="col-1 text-right">
+                    <strong>{totalPrice.toFixed(2)}€</strong>
+                  </div>
                 </div>
-              </div>
-             
-              <div className="commanderdiv">
-                <button className="commander" onClick={() => alert("La commande est indisponible. Ce site est fictif.")}>
-                  Commander
-                </button>
-              </div>
+
+                <div className="commanderdiv">
+                  <button
+                    className="commander"
+                    onClick={() =>
+                      alert("La commande est indisponible. Ce site est fictif.")
+                    }
+                  >
+                    Commander
+                  </button>
+                </div>
               </div>
             </>
           )}
