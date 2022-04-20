@@ -1,15 +1,14 @@
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { BsCart, BsCartCheck, BsHeart } from "react-icons/bs";
 
 const NavBar = (props) => {
+  const { isAuthenticated, cartItems } = props;
   const logout = () => {
-    localStorage.clear();
+    Cookies.remove("token");
     window.location.href = "/";
   };
-  const token = localStorage.getItem("token");
-
-  const { cartItems } = props;
 
   return (
     <div>
@@ -32,20 +31,20 @@ const NavBar = (props) => {
           <Link to="/products">
             <li className="liMenu">PRODUITS</li>
           </Link>
-          {token ? (
+          {isAuthenticated ? (
             <div className="flex flex-row">
               <Link to="/moncompte">
                 <li className="text-black ml-2">MON COMPTE</li>
               </Link>
             </div>
           ) : null}
-        
-            <div className="flex flex-row">
-              <Link to="/favoris">
-              < BsHeart className="text-2xl" />
+
+          <div className="flex flex-row">
+            <Link to="/favoris">
+              <BsHeart className="text-2xl" />
             </Link>
-            </div>
-        
+          </div>
+
           <Link to="/monpanier">
             <li className="liMenu">
               {cartItems.length > 0 ? (
@@ -59,7 +58,7 @@ const NavBar = (props) => {
             </li>
           </Link>
 
-          {token ? (
+          {isAuthenticated ? (
             <div className="flex flex-row">
               <li className="text-black ml-2" onClick={() => logout()}>
                 DECONNEXION
@@ -70,7 +69,6 @@ const NavBar = (props) => {
               <li className="liMenu">MON COMPTE</li>
             </Link>
           )}
-          
         </ul>
       </div>
     </div>

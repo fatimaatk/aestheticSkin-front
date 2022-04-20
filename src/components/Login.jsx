@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "../styles/login.css";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const url = "http://localhost:8000/security/login";
@@ -13,11 +14,9 @@ const Login = () => {
     if (email && password) {
       const user = { email: email, password: password };
       axios.post(url, user).then(({ data }) => {
-        console.log("data", data);
         if (data.error) setError(data.error);
         else {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem(`user`, JSON.stringify(data.user));
+          Cookies.set("token", JSON.stringify(data));
           window.location.href = "/";
         }
       });

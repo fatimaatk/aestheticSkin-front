@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
 import ProductContext from "./contexts/ProductsContext.js";
 import PanierContext from "./contexts/PanierContext.js";
@@ -148,25 +149,24 @@ const App = () => {
   }, []);
 
   const getUser = () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
+    const token = Cookies.get("token");
     if (token) {
       axios
         .get("http://localhost:8000/security/user-is-auth", {
-          access_token: token,
+          headers: {
+            "x-access-token": token,
+          },
         })
         .then(({ data }) => {
-          console.log(data);
-          //   if (data) {
-          //     setIsAuthenticated(true);
-          //     setUser(JSON.parse(localStorage.getItem("user")));
-          //     console.log("user is authenticated");
-          //   }
-          // })
-          // .catch(() => {
-          //   console.log("user is not authenticated");
-          //   //localStorage.removeItem("token");
-          // });
+          if (data) {
+            console.log("user is authenticated");
+            setIsAuthenticated(true);
+            setUser(JSON.parse(Cookies.get("token")));
+          }
+        })
+        .catch(() => {
+          console.log("user is not authenticated");
+          localStorage.removeItem("token");
         });
     }
   };
@@ -199,6 +199,7 @@ const App = () => {
               >
                 <BrowserRouter>
                   <NavBar
+                    setIsAuthenticated={setIsAuthenticated}
                     isAuthenticated={isAuthenticated}
                     cartItems={cartItems}
                   />
