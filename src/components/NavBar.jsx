@@ -10,7 +10,7 @@ const NavBar = (props) => {
   const { cartItems, isAuthenticated } = props;
 
   const token = Cookies.get("token");
-  const tokenObj = token && JSON.parse(token);
+  const tokenObj = token ? JSON.parse(token) : null;
 
   const logout = () => {
     Cookies.remove("token");

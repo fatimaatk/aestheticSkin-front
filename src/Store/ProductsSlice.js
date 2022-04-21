@@ -22,16 +22,13 @@ export const productsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getProducts.pending]: (state) => {
-      console.log('pending')
       state.loading = true
     },
     [getProducts.fulfilled]: (state, { payload }) => {
-      console.log('fulfilled')
       state.loading = false
       state.products = payload
     },
     [getProducts.rejected]: (state) => {
-      console.log('rejected')
       state.loading = false
     },
   },

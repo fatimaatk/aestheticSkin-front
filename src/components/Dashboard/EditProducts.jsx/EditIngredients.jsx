@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { FiEdit2 } from "react-icons/fi";
 
-const EditTitleProduct = ({ product }) => {
-  const [title, setTitle] = useState([]);
+const EditIngredients = ({ product }) => {
+  const [ingredients, setIngredients] = useState([]);
+  const [edit, setEdit] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(false);
-  const [edit, setEdit] = useState(false);
 
   const handleSubmit = async () => {
-    const update = { title: title };
+    const update = { ingredients: ingredients };
     await axios
-      .put(`http://localhost:8000/products/${product.id}`, update)
+      .put(`http://localhost:8000/ingredients/${product.id}`, update)
       .then(({ data }) => {
         if (data.error) setError(data.error);
         else {
@@ -21,21 +21,21 @@ const EditTitleProduct = ({ product }) => {
   };
 
   return (
-    <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-      <dt className="text-l font-medium text-gray-500 ">Titre</dt>
+    <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+      <dt className="text-l font-medium text-gray-500 ">Ingrédients</dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
         <div className="flex justify-around p-2">
           <div className="w-full">
-            <div className="flex justify-around flex-col border border-solid p-4">
-              <p className="">{product.title}</p>
+            <div className="bg-white flex justify-around flex-col border border-solid p-4">
+              <p className="">{product.ingredients}</p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className={edit ? "flex mt-4" : "hidden"}>
-                <input
-                  className="w-full border border-solid border-gray-400 py-2 px-4 text-gray-700 "
+                <textarea
+                  className="w-full border border-solid border-gray-400 py-2 px-4 text-gray-700"
                   type="text"
-                  placeholder="Modifier le titre"
-                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Modifier la description"
+                  onChange={(e) => setIngredients(e.target.value)}
                 />
                 <button className="bg-transparent  text-gray-600 font-semibold hover:text-black py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                   Enregistrer
@@ -52,4 +52,4 @@ const EditTitleProduct = ({ product }) => {
   );
 };
 
-export default EditTitleProduct;
+export default EditIngredients;
