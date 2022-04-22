@@ -9,7 +9,10 @@ import EditDescriptions from "./EditProducts.jsx/EditDescriptions";
 import EditContenance from "./EditProducts.jsx/EditContenance";
 import EditPrice from "./EditProducts.jsx/EditPrice";
 import EditIngredients from "./EditProducts.jsx/EditIngredients";
-import EditImages from "./EditProducts.jsx/EditImages";
+import EditImage1 from "./EditProducts.jsx/EditImage1";
+import EditImage2 from "./EditProducts.jsx/EditImage2";
+import EditImage3 from "./EditProducts.jsx/EditImage3";
+import EditImage4 from "./EditProducts.jsx/EditImage4";
 
 const DashboardProduct = () => {
   const navigate = useNavigate();
@@ -27,13 +30,6 @@ const DashboardProduct = () => {
   useEffect(() => {
     getProduct();
   }, [params.id]);
-
-  const arrayOfImage = [
-    product.image1,
-    product.image2,
-    product.image3,
-    product.image4,
-  ];
 
   return (
     <div>
@@ -71,14 +67,12 @@ const DashboardProduct = () => {
               <EditContenance product={product} />
               <EditPrice product={product} />
               <EditIngredients product={product} />
+              <EditImage1 id={product.id} image={product.image1} />
+              <EditImage2 id={product.id} image={product.image2} />
+              <EditImage3 id={product.id} image={product.image3} />
+              <EditImage4 id={product.id} image={product.image4} />
             </dl>
           </div>
-        </div>
-        <div className="grid grid-cols-2  gap-4 ml-20">
-          {arrayOfImage.map((image, i) => (
-            <img src={image} alt="" key={i} className="w-48" />
-          ))}
-          <EditImages product={product} />
         </div>
       </div>
     </div>

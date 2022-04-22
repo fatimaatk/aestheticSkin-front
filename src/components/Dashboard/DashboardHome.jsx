@@ -10,8 +10,6 @@ const DashboardHome = () => {
     dispatch(getProducts());
   }, []);
 
-  console.log(products);
-
   return (
     <div className="flex justify-center p-20 text-center">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-solid w-1/0">
