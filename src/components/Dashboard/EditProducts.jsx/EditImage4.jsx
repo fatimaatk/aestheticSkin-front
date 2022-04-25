@@ -74,7 +74,7 @@ const EditImage4 = ({ id, image }) => {
                 </form>
               ) : (
                 <img
-                  className=" w-full h-96 md:h-auto object-cover md:w-2/6 rounded-t-lg md:rounded-none md:rounded-l-lg"
+                  className="w-full md:h-auto object-cover md:w-2/6"
                   src={image}
                   alt=""
                 />

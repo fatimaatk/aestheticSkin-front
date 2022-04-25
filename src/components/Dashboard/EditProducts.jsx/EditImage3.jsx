@@ -19,7 +19,7 @@ const EditImage3 = ({ id, image }) => {
   const handleSubmitNewImage = (e) => {
     e.preventDefault();
     if (newImage) {
-      formData.append("image4", newImage);
+      formData.append("image3", newImage);
       axios
         .put(
           `http://localhost:8000/images/update/image3/${id}`,
@@ -74,7 +74,7 @@ const EditImage3 = ({ id, image }) => {
                 </form>
               ) : (
                 <img
-                  className=" w-full h-96 md:h-auto object-cover md:w-2/6 rounded-t-lg md:rounded-none md:rounded-l-lg"
+                  className="w-full md:h-auto object-cover md:w-2/6"
                   src={image}
                   alt=""
                 />

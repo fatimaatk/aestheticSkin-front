@@ -13,7 +13,6 @@ import EditIngredients from "./EditProducts.jsx/EditIngredients";
 import EditImage1 from "./EditProducts.jsx/EditImage1";
 import EditImage2 from "./EditProducts.jsx/EditImage2";
 import EditImage3 from "./EditProducts.jsx/EditImage3";
-import EditImage4 from "./EditProducts.jsx/EditImage4";
 
 const DashboardProduct = () => {
   const navigate = useNavigate();
@@ -38,41 +37,45 @@ const DashboardProduct = () => {
         <NavDashboard />
       </header>
       <div className="pt-4 pl-20">
-        <a
-          href="#!"
-          className="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out mt-5"
-          onClick={() => navigate(-1)}
-        >
-          Revenir à la page précédente
-        </a>
+        <div className="flex justify-around">
+          <a
+            href="#!"
+            className="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out mt-5"
+            onClick={() => navigate(-1)}
+          >
+            Revenir à la page précédente
+          </a>
+          <Link
+            className="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out mt-5"
+            to={`/products/${product.id}`}
+          >
+            Voir la page produit
+          </Link>
+        </div>
       </div>
       <div className="flex justify-center items-start  text-center m-5">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-solid w-4/5">
-          <div className="px-4 py-3 sm:px-6 text-center">
-            <h3 className="text-xl leading-6 font-medium text-gray-900 ">
-              Nom du produit : {product.title} <br/> <br/> Référence : {product.id}
+        <div className="bg-white shadow overflow-hidden w-3/5 shadow">
+          <div className="px-4 py-3 sm:px-6">
+            <h3 className="text-xl leading-6 text-gray-900 ">
+              Nom du produit : {product.title} <br /> <br /> Référence :{" "}
+              {product.id}
             </h3>
           </div>
-          <div className="border-t border-gray-200 flex">
-            <dl className="w-3/5 border-2 border-gray-200">
-             
-
+          <div className=" justify-around pb-5 pt-2 px-5">
+            <dl className="shadow mx-2">
               <EditTitleProduct product={product} />
-              <EditDescriptions product={product} />
-              <EditTextureProduct product={product} />
               <EditCategory product={product} />
-              <EditContenance product={product} />
+              <EditTextureProduct product={product} />
               <EditPrice product={product} />
+              <EditContenance product={product} />
+              <EditDescriptions product={product} />
               <EditIngredients product={product} />
-            </dl>
-             <dl className="w-2/5 border-2 border-gray-200">
+
               <EditImage1 id={product.id} image={product.image1} />
               <EditImage2 id={product.id} image={product.image2} />
               <EditImage3 id={product.id} image={product.image3} />
-              <EditImage4 id={product.id} image={product.image4} />
             </dl>
           </div>
-
         </div>
       </div>
     </div>

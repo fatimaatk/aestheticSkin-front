@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BsHeartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
@@ -9,6 +9,7 @@ import "./../styles/details.css";
 import FavorisContext from "../contexts/FavorisContext";
 
 const ProductDetails = () => {
+   const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
@@ -59,9 +60,13 @@ const ProductDetails = () => {
   return (
     <div className="mainProduct">
       <div className=" backProducts">
-        <Link to="/products" className="hover:color-black">
-          <p>Revenir à la page produits</p>
-        </Link>
+           <a
+          href="#!"
+          className="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out "
+          onClick={() => navigate(-1)}
+        >
+          Revenir à la page précédente
+        </a>
       </div>
       <div className="detailGlobal">
         <div className="detailImage">

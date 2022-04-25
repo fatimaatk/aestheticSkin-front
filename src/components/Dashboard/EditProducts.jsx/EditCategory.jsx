@@ -25,13 +25,14 @@ const EditCategory = ({ product }) => {
       });
   };
 
+  console.log(idCategory)
   const getCategories = () => {
     axios.get(`http://localhost:8000/categories`).then((response) => {
       setCategories(response.data);
     });
   };
 
-  console.log(categories.map((category)=> category.category_title))
+
   return (
     <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
       <dt className="text-l font-medium text-gray-500 ">Categorie</dt>
