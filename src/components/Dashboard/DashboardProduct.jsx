@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import NavDashboard from "./NavDashboard";
 import EditTitleProduct from "./EditProducts.jsx/EditTitleProduct";
 import EditTextureProduct from "./EditProducts.jsx/EditTextureProduct";
+import EditCategory from "./EditProducts.jsx/EditCategory";
 import EditDescriptions from "./EditProducts.jsx/EditDescriptions";
 import EditContenance from "./EditProducts.jsx/EditContenance";
 import EditPrice from "./EditProducts.jsx/EditPrice";
@@ -46,33 +47,32 @@ const DashboardProduct = () => {
         </a>
       </div>
       <div className="flex justify-center items-start  text-center m-5">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-solid w-2/5">
-          <div className="px-4 py-5 sm:px-6 text-center">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-solid w-4/5">
+          <div className="px-4 py-3 sm:px-6 text-center">
             <h3 className="text-xl leading-6 font-medium text-gray-900 ">
-              {product.title}
+              Nom du produit : {product.title} <br/> <br/> Référence : {product.id}
             </h3>
           </div>
-          <div className="border-t border-gray-200">
-            <dl>
-              <div className="bg-neutral-100 px-4 py-2  sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-l font-medium text-gray-500 ">ID</dt>
-                <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 r">
-                  {product.id}
-                </dd>
-              </div>
+          <div className="border-t border-gray-200 flex">
+            <dl className="w-3/5 border-2 border-gray-200">
+             
 
               <EditTitleProduct product={product} />
-              <EditTextureProduct product={product} />
               <EditDescriptions product={product} />
+              <EditTextureProduct product={product} />
+              <EditCategory product={product} />
               <EditContenance product={product} />
               <EditPrice product={product} />
               <EditIngredients product={product} />
+            </dl>
+             <dl className="w-2/5 border-2 border-gray-200">
               <EditImage1 id={product.id} image={product.image1} />
               <EditImage2 id={product.id} image={product.image2} />
               <EditImage3 id={product.id} image={product.image3} />
               <EditImage4 id={product.id} image={product.image4} />
             </dl>
           </div>
+
         </div>
       </div>
     </div>

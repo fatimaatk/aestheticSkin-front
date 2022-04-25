@@ -21,18 +21,18 @@ const EditDescriptions = ({ product }) => {
   };
 
   return (
-    <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+    <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center h-1/5">
       <dt className="text-l font-medium text-gray-500 ">Description</dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
-        <div className="flex justify-around p-2">
+        <div className="flex justify-around p-2 ">
           <div className="w-full">
-            <div className="flex justify-around flex-col border border-solid p-4">
+            <div className="bg-white flex justify-around flex-col border border-solid p-4">
               <p className="">{product.description}</p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className={edit ? "flex mt-4" : "hidden"}>
                 <textarea
-                  className="w-full border border-solid border-gray-400 py-2 px-4 text-gray-700"
+                  className="w-full h-full border border-solid border-gray-400 py-2 px-4 text-gray-700"
                   type="text"
                   placeholder="Modifier la description"
                   onChange={(e) => setDescription(e.target.value)}

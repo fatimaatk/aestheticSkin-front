@@ -21,7 +21,7 @@ const EditIngredients = ({ product }) => {
   };
 
   return (
-    <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+    <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
       <dt className="text-l font-medium text-gray-500 ">Ingrédients</dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
         <div className="flex justify-around p-2">

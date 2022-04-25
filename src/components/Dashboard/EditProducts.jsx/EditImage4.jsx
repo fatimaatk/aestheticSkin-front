@@ -50,7 +50,7 @@ const EditImage4 = ({ id, image }) => {
   };
 
   return (
-    <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+    <div className="h-1/4 bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
       <dt className="text-l font-medium text-gray-500 ">Image 4</dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
         <div className="flex justify-around p-2">
@@ -74,7 +74,7 @@ const EditImage4 = ({ id, image }) => {
                 </form>
               ) : (
                 <img
-                  className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+                  className=" w-full h-96 md:h-auto object-cover md:w-2/6 rounded-t-lg md:rounded-none md:rounded-l-lg"
                   src={image}
                   alt=""
                 />

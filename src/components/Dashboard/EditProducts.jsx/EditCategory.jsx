@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FiEdit2 } from "react-icons/fi";
 
-const EditTextureProduct = ({ product }) => {
-  const [textures, setTextures] = useState([]);
-  const [idTexture, setIdTexture] = useState([]);
+const EditCategory = ({ product }) => {
+  const [categories, setCategories] = useState([]);
+  const [idCategory, setIdCategory] = useState([]);
   const [setError] = useState("");
   const [result, setResult] = useState(false);
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    getTexture();
+    getCategories();
   }, []);
 
   const handleSubmit = async () => {
-    const update = { texture_id: idTexture };
+    const update = { category_id: idCategory };
     await axios
-      .put(`http://localhost:8000/textures/${product.id}`, update)
+      .put(`http://localhost:8000/categories/${product.id}`, update)
       .then(({ data }) => {
         if (data.error) setError(data.error);
         else {
@@ -25,20 +25,21 @@ const EditTextureProduct = ({ product }) => {
       });
   };
 
-  const getTexture = () => {
-    axios.get(`http://localhost:8000/textures`).then((response) => {
-      setTextures(response.data);
+  const getCategories = () => {
+    axios.get(`http://localhost:8000/categories`).then((response) => {
+      setCategories(response.data);
     });
   };
 
+  console.log(categories.map((category)=> category.category_title))
   return (
-    <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
-      <dt className="text-l font-medium text-gray-500 ">Texture</dt>
+    <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+      <dt className="text-l font-medium text-gray-500 ">Categorie</dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
         <div className="flex justify-around p-2">
           <div className="w-full ">
             <div className="bg-white flex justify-around flex-col border border-solid p-4">
-              <p className=""> {product.texture_title}</p>
+              <p className="capitalize"> {product.category_title}</p>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -60,13 +61,13 @@ const EditTextureProduct = ({ product }) => {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   aria-label="Default select example"
-                  onChange={(e) => setIdTexture(e.target.value)}
-                  value={idTexture}
+                  onChange={(e) => setIdCategory(e.target.value)}
+                  value={idCategory}
                   multiple={true}
                 >
-                  {textures.map((texture, i) => (
-                    <option key={i} value={texture.id}>
-                      {texture.texture_title}
+                  {categories.map((category, i) => (
+                    <option key={i} value={category.id}>
+                      {category.category_title}
                     </option>
                   ))}
                 </select>
@@ -86,4 +87,4 @@ const EditTextureProduct = ({ product }) => {
   );
 };
 
-export default EditTextureProduct;
+export default EditCategory;

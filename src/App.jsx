@@ -27,6 +27,7 @@ import DashboardProduct from "./components/Dashboard/DashboardProduct.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "./Store/ProductsSlice.js";
+import DashboardAddNew from "./components/Dashboard/DashboardAddNew.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -231,6 +232,10 @@ const App = () => {
                     <Route
                       path="dashboard/product/:id"
                       element={<DashboardProduct />}
+                    />
+                    <Route
+                      path="dashboard/addproduct"
+                      element={<DashboardAddNew />}
                     />
                     <Route
                       path="dashboard/commentaires"
