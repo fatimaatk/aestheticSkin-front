@@ -46,19 +46,16 @@ const DashboardCommentaires = () => {
         <NavDashboard />
       </header>
 
-      <h1 className="mt-4 ml-20 text-xl text-center font-bold">
+      <h1 className="mt-5 ml-20 text-xl text-center font-bold">
         Liste des commentaires
       </h1>
 
       <section className="antialiased  text-gray-600 p-4 w-full text-center">
         <div className="flex flex-col justify-center h-full">
-          <p className="mb-2">
-            Page : {currentPage} / {totalPage.length}
-          </p>
           <div className="w-2/3  mx-auto bg-white shadow-lg rounded-sm">
             <div className="p-3 ">
               <div className="flex justify-between items-center">
-                <div className="w-full flex justify-center"></div>
+                blabl
                 <EditSearchCommentaires />
               </div>
               <div className="overflow-x-auto mt-4">
@@ -98,14 +95,24 @@ const DashboardCommentaires = () => {
                   <div></div>
                 </table>
               </div>
-              <EditPaginationCommentaires
-                commentsPerPage={commentsPerPage}
-                totalComments={comments.length}
-                currentPage={currentPage}
-                paginate={paginate}
-                setCurrentPage={setCurrentPage}
-                totalPage={totalPage}
-              />
+              <div className="flex items-center mt-5">
+                <div className="flex-1">
+                  <EditPaginationCommentaires
+                    commentsPerPage={commentsPerPage}
+                    totalComments={comments.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                    setCurrentPage={setCurrentPage}
+                    totalPage={totalPage}
+                  />
+                </div>
+                <div className="flex flex-col text-sm">
+                  <p>
+                    Page : {currentPage} / {totalPage.length}
+                  </p>
+                  <p>Résultat : {comments.length}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
