@@ -36,7 +36,10 @@ const DashboardProductCard = ({ product }) => {
             </h5>
           </div>
           <div className="ml-5">
-            <RiDeleteBinLine onClick={handleSubmit} />
+            <RiDeleteBinLine
+              onClick={handleSubmit}
+              className="cursor-pointer"
+            />
           </div>
         </div>
       </div>
