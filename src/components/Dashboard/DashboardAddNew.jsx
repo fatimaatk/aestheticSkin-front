@@ -29,6 +29,7 @@ const DashboardAddNew = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
+  console.log(error);
   const formData = new FormData();
   const config = {
     headers: { "content-type": "multipart/form-data" },

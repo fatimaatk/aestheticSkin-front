@@ -9,7 +9,7 @@ import "./../styles/details.css";
 import FavorisContext from "../contexts/FavorisContext";
 
 const ProductDetails = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
@@ -31,6 +31,7 @@ const ProductDetails = () => {
       });
   };
 
+  //à modifier
   const getComments = () => {
     axios
       .get(`http://localhost:8000/comments/${params.id}`)
@@ -60,7 +61,7 @@ const ProductDetails = () => {
   return (
     <div className="mainProduct">
       <div className=" backProducts">
-           <a
+        <a
           href="#!"
           className="underline decoration-transparent hover:decoration-inherit transition duration-300 ease-in-out "
           onClick={() => navigate(-1)}

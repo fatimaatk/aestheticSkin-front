@@ -7,6 +7,8 @@ import EditPaginationCommentaires from "./EditCommentaires.jsx/EditPaginationCom
 
 const DashboardCommentaires = () => {
   const [comments, setComments] = useState([]);
+  const [asc, setAsc] = useState(false);
+  const [desc, setDesc] = useState(false);
 
   const getComments = () => {
     axios.get(`http://localhost:8000/comments`).then((response) => {
@@ -38,8 +40,6 @@ const DashboardCommentaires = () => {
     totalPage.push(i);
   }
 
-  console.log(totalPage);
-
   return (
     <div>
       <header className="bg-white shadow">
@@ -55,7 +55,6 @@ const DashboardCommentaires = () => {
           <div className="w-2/3  mx-auto bg-white shadow-lg rounded-sm">
             <div className="p-3 ">
               <div className="flex justify-between items-center">
-                blabl
                 <EditSearchCommentaires />
               </div>
               <div className="overflow-x-auto mt-4">
@@ -92,7 +91,6 @@ const DashboardCommentaires = () => {
                         <EditCommentaire comment={comment} key={i} />
                       ))}
                   </tbody>
-                  <div></div>
                 </table>
               </div>
               <div className="flex items-center mt-5">
