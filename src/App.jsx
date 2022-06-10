@@ -19,7 +19,7 @@ import ProductDetails from "./components/ProductDetails.jsx";
 import Favoris from "./components/Favoris.jsx";
 import Panier from "./components/Panier.jsx";
 import Footer from "./components/Footer.jsx";
-import MonCompte from "./components/Moncompte.jsx";
+import MonCompte from "./components/Account/Moncompte.jsx";
 import DashboardAccount from "./components/Dashboard/DashboardAccount.jsx";
 import DashboardCommentaires from "./components/Dashboard/DashboardCommentaires.jsx";
 import DashboardProductsList from "./components/Dashboard/DashboardProductsList.jsx";
