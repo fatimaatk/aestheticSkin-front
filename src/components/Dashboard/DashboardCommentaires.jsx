@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavDashboard from "./NavDashboard";
 import EditCommentaire from "./EditCommentaires.jsx/EditCommentaire";
-import EditSearchCommentaires from "./EditCommentaires.jsx/EditSearchCommentaires";
-import EditPaginationCommentaires from "./EditCommentaires.jsx/EditPaginationCommentaires";
+import { ExportCSV } from "../Common/ExportExcel";
+import Pagination from "../Common/Pagination";
 
 const DashboardCommentaires = () => {
   const [comments, setComments] = useState([]);
-  const [asc, setAsc] = useState(false);
-  const [desc, setDesc] = useState(false);
 
   const getComments = () => {
     axios.get(`http://localhost:8000/comments`).then((response) => {
@@ -55,7 +53,7 @@ const DashboardCommentaires = () => {
           <div className="w-2/3  mx-auto bg-white shadow-lg rounded-sm">
             <div className="p-3 ">
               <div className="flex justify-between items-center">
-                <EditSearchCommentaires />
+                <ExportCSV csvData={comments} fileName="Commentaires" />
               </div>
               <div className="overflow-x-auto mt-4">
                 <table className="table-auto w-full">
@@ -95,7 +93,7 @@ const DashboardCommentaires = () => {
               </div>
               <div className="flex items-center mt-5">
                 <div className="flex-1">
-                  <EditPaginationCommentaires
+                  <Pagination
                     commentsPerPage={commentsPerPage}
                     totalComments={comments.length}
                     currentPage={currentPage}

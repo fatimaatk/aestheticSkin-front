@@ -1,14 +1,31 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { getProducts } from "../../Store/ProductsSlice";
+import { useState } from "react";
 
 const DashboardHome = () => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
+  const [accounts, setAccounts] = useState([]);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     dispatch(getProducts());
+    getAccounts();
+    getComments();
   }, []);
+
+  const getAccounts = () => {
+    axios.get(`http://localhost:8000/accounts`).then((response) => {
+      setAccounts(response.data);
+    });
+  };
+  const getComments = () => {
+    axios.get(`http://localhost:8000/comments`).then((response) => {
+      setComments(response.data);
+    });
+  };
 
   return (
     <div className="flex justify-center p-20 text-center">
@@ -33,7 +50,7 @@ const DashboardHome = () => {
                 Nombre total de commentaires
               </dt>
               <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
-                25
+                {comments.length}
               </dd>
             </div>
             <div className="bg-neutral-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -41,7 +58,7 @@ const DashboardHome = () => {
                 Nombre de comptes clients
               </dt>
               <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2">
-                10
+                {accounts.length}
               </dd>
             </div>
           </dl>

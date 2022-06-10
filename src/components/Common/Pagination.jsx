@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const EditPaginationCommentaires = (props) => {
+const Pagination = (props) => {
   const {
-    totalComments,
-    commentsPerPage,
+    totalItem,
+    itemPerPage,
     paginate,
     currentPage,
     setCurrentPage,
@@ -57,14 +57,8 @@ const EditPaginationCommentaires = (props) => {
             </Link>
           </li>
         </div>
-        {/* <div className="w-1/5 flex flex-col justify-center">
-          <p>
-            Page: {currentPage} / {totalPage.length}
-          </p>
-          <p className="mr-10">Total: {totalComments} commentaires</p>
-        </div> */}
       </ul>
     </nav>
   );
 };
-export default EditPaginationCommentaires;
+export default Pagination;

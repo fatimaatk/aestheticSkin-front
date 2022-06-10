@@ -6,7 +6,6 @@ const EditCategory = ({ product }) => {
   const [categories, setCategories] = useState([]);
   const [idCategory, setIdCategory] = useState([]);
   const [setError] = useState("");
-  const [result, setResult] = useState(false);
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -19,19 +18,14 @@ const EditCategory = ({ product }) => {
       .put(`http://localhost:8000/categories/${product.id}`, update)
       .then(({ data }) => {
         if (data.error) setError(data.error);
-        else {
-          setResult(true);
-        }
       });
   };
 
-  console.log(idCategory)
   const getCategories = () => {
     axios.get(`http://localhost:8000/categories`).then((response) => {
       setCategories(response.data);
     });
   };
-
 
   return (
     <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">

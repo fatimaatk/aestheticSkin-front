@@ -1,7 +1,21 @@
-import React from "react";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
+import React, { useState } from "react";
+import axios from "axios";
+import { FaExchangeAlt } from "react-icons/fa";
 
 const EditCommentaire = ({ comment }) => {
+  const [setError] = useState("");
+
+  const handleSubmit = async (element) => {
+    const update = { isVisible: element };
+    await axios
+      .put(`http://localhost:8000/comments/update/${comment.id}`, update)
+      .then(({ data }) => {
+        if (data.error) setError(data.error);
+        else {
+          window.location.reload();
+        }
+      });
+  };
   return (
     <tr>
       <td className="p-2 whitespace-nowrap">
@@ -23,15 +37,25 @@ const EditCommentaire = ({ comment }) => {
       </td>
       <td className="p-2 ">
         <div className="text-center">
-          {comment.isVisible === 1 ? <p>En ligne</p> : <p>Hors ligne</p>}
+          {comment.isVisible === 0 ? (
+            <p className="text-green-600">En ligne</p>
+          ) : (
+            <p className="text-red-600">Hors ligne</p>
+          )}
         </div>
       </td>
       <td className="p-2 ">
         <div className="flex justify-center">
-          {comment.isVisible === 1 ? (
-            <BiArchiveIn className="text-red-600" />
+          {comment.isVisible === 0 ? (
+            <FaExchangeAlt
+              className="cursor-pointer"
+              onClick={() => handleSubmit(1)}
+            />
           ) : (
-            <BiArchiveOut className="text-green-600" />
+            <FaExchangeAlt
+              className="cursor-pointer"
+              onClick={() => handleSubmit(0)}
+            />
           )}
         </div>
       </td>
