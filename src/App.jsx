@@ -222,7 +222,7 @@ const App = () => {
                     element={<ProductDetails cartItems={cartItems} />}
                   />
                   <Route path="/connexion" element={<Connection />} />
-                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
                   <Route path="/admin" element={<ProtectedRoute />}>
                     <Route path="dashboard" element={<DashboardAdmin />} />
                     <Route
@@ -247,7 +247,6 @@ const App = () => {
                     />
                   </Route>
                   <Route path="/monpanier" element={<Panier />} />
-                  <Route path="/register" element={<Register />} />
                   <Route path="/favoris" element={<Favoris />} />
                   <Route path="/moncompte" element={<MonCompte />} />
                 </Routes>
