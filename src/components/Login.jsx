@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/login.css";
 import Cookies from "js-cookie";
@@ -8,9 +9,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,12 +22,16 @@ const Login = () => {
         }
       });
     } else {
-      setError("Please enter email and password");
+      setError(
+        "Merci de bien vouloir entrer un email et un mot de passe valide."
+      );
     }
   };
 
+  console.log(error);
+
   return (
-    <div className="login-block">
+    <div className="loginDiv p-10 login-block">
       <h2 className="register-h2 mt-1 mb-2 text-center w-full z-10 font-semibold">
         CONNEXION
       </h2>
@@ -71,6 +73,12 @@ const Login = () => {
             Me connecter
           </button>
         </form>
+        <div className="flex flex-col text-center mt-2">
+          <span>Vous n'avez pas encore de compte ? </span>
+          <Link to="/register" className="font-bold hover:underline ">
+            Rejoignez-nous !
+          </Link>
+        </div>
       </div>
     </div>
   );

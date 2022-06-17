@@ -2,15 +2,11 @@ import ProductCard from "./ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./../styles/products.css";
-import Tri from "./Tri";
-
-// import Filter from "./Filter";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [texture, setTexture] = useState();
-
   const [categoryIsSelected, setCategoryIsSelected] = useState({});
   const [textureIsSelected, setTextureIsSelected] = useState({});
 
@@ -82,13 +78,13 @@ const Products = () => {
   return (
     <div className="mainProducts">
       <div className="filter">
-        <h1 className="pl-8 text-xl">FILTRES </h1>
+        {/* <h1 className="pl-8 text-xl">FILTRES </h1> */}
         <ul className="filtercategorie mt-20">
           <h2 className="font-bold text-lg">CATEGORIES</h2>
           {category
             ? category.map((category, i) => (
                 <div className="flex items-center justify-between" key={i}>
-                  <label className="uppercase">{category.title}</label>
+                  <label className="uppercase">{category.category_title}</label>
                   <input
                     type="checkbox"
                     id="textures"
@@ -109,7 +105,7 @@ const Products = () => {
           {texture
             ? texture.map((texture, i) => (
                 <div className="flex items-center justify-between" key={i}>
-                  <label className="uppercase">{texture.title}</label>
+                  <label className="uppercase">{texture.texture_title}</label>
                   <input
                     type="checkbox"
                     id="textures"
@@ -128,10 +124,8 @@ const Products = () => {
       </div>
       <div className="productListMain ">
         <div className="flex justify-center flex-col">
-          <div className="ml-24 mr-36 flex justify-between">
+          <div className="ml-24 mr-36 mb-10 flex justify-between">
             <h1 className="text-2xl font-bold">TOUS LES PRODUITS</h1>
-
-            <Tri />
           </div>
 
           <div className="productsList  grid grid-rows-2 grid-flow-col gap-4">
@@ -153,6 +147,16 @@ const Products = () => {
                     (product) =>
                       categoryIsSelected[product.category_id] &&
                       textureIsSelected[product.texture_id]
+                  )
+                  .map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))
+              : arrayTexture.includes(true) && arrayCategory.includes(true)
+              ? products
+                  .filter(
+                    (product) =>
+                      textureIsSelected[product.texture_id] &&
+                      categoryIsSelected[product.category_id]
                   )
                   .map((product) => (
                     <ProductCard key={product.id} product={product} />

@@ -1,3 +1,16 @@
-.inputForm{
-  background-color: #E5E5E5;
+.loginDiv {
+  background-color: #e5e5e5;
+}
+
+.logoConnection {
+  display: flex;
+  flex-direction: column;
+  font-family: "Tenor Sans", sans-serif;
+  outline: 0;
+  margin-left: 5px;
+  margin-bottom: 1rem;
+}
+
+.logoConnection1:hover {
+  color: black;
 }

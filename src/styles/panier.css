@@ -1,50 +1,98 @@
-.mainpanier{
+.mainpanier {
   display: flex;
-
   justify-content: center;
   align-items: center;
 }
-
-.paniercomplete{
-  margin-top: 2rem;
-
+.titleCart {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50vw;
+  justify-content: space-between;
+  width: 60%;
+  margin: 20px;
 }
 
-.imagepanier{
+.paniercomplete {
+  width: 60%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tableCart {
+  flex: 2;
+  margin-right: 10rem;
+}
+.divImagePanier {
+  display: flex;
+  width: 20rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imagepanier {
   width: 50%;
 }
 
-.basketAddRem{
-
+.basketAddRem {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
-.addBasket{
-  background-color: #E5E5E5;
+.addBasket {
+  background-color: #e5e5e5;
+  width: 4rem;
+  height: 4rem;
+  font-size: 20px;
 }
 
-.removeBasket{
-  background-color: #E5E5E5;
+.addBasket:hover {
+  border: solid black 1px;
 }
 
-.totalpanier{
-  width: 90%;
-}
-.commanderdiv{
+.qtyBasket {
+  width: 4rem;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5rem;
+  cursor: default;
 }
-.commander{
-  margin-top: 1rem;
+
+.itemPanier {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.totalpanier {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  background-color: white;
+  padding: 15px;
+}
+.totalItemPanier {
+  margin: 20px;
+}
+.commanderdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.commander {
   background-color: black;
   color: white;
-  width: 50%;
+  width: 12rem;
+  height: 70px;
+  padding: 10px;
+}
+.continueShopping {
+  border: solid black 1px;
+  width: 12rem;
+  padding: 10px;
+  text-align: center;
 }
