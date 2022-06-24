@@ -17,6 +17,8 @@ const NavBar = (props) => {
     window.location.href = "/";
   };
 
+  const arrayOfQty = cartItems.map((x) => parseInt(x.qty));
+  const qty = arrayOfQty.length > 0 && arrayOfQty.reduce((a, b) => a + b);
   return (
     <div>
       <div className="messagepromo">
@@ -57,7 +59,9 @@ const NavBar = (props) => {
               {cartItems.length > 0 ? (
                 <div className="flex flex-row">
                   <BsCartCheck className="text-2xl" />
-                  <p className="text-black ml-2">{cartItems.length}</p>
+                  <p className="text-black ml-2">
+                    {arrayOfQty.length > 0 && qty}
+                  </p>
                 </div>
               ) : (
                 <BsCart className="text-2xl" />

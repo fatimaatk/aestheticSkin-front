@@ -7,6 +7,8 @@ import { AiFillStar } from "react-icons/ai";
 import PanierContext from "../contexts/PanierContext";
 import "./../styles/details.css";
 import FavorisContext from "../contexts/FavorisContext";
+import { UserContext } from "../contexts/UserContext";
+import AddComment from "./AddComment";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -14,8 +16,10 @@ const ProductDetails = () => {
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
+  const [showAll, setShowAll] = useState(false);
   const { cartItems, onAdd } = useContext(PanierContext);
   const { favorites, handleFavoris } = useContext(FavorisContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getProduct();
@@ -23,6 +27,9 @@ const ProductDetails = () => {
     getRates();
   }, [params.id]);
 
+  const showAllComments = () => {
+    setShowAll(!showAll);
+  };
   const getProduct = () => {
     axios
       .get(`http://localhost:8000/products/${params.id}`)
@@ -34,7 +41,7 @@ const ProductDetails = () => {
   //à modifier
   const getComments = () => {
     axios
-      .get(`http://localhost:8000/comments/${params.id}`)
+      .get(`http://localhost:8000/comments/product/${params.id}`)
       .then((response) => {
         setComments(response.data);
       });
@@ -58,8 +65,9 @@ const ProductDetails = () => {
   );
 
   const result = Math.round(sumWithInitial / allRates.length);
+
   return (
-    <div className="mainProduct">
+    <div className="mainProduct mb-10">
       <div className=" backProducts">
         <a
           href="#!"
@@ -104,45 +112,94 @@ const ProductDetails = () => {
                 type="button"
               />
             </h1>
-
             <p className="detailCategory">{product.category}</p>
-
             <p className="detailDescription">{product.description}</p>
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
-            <div className="stars mt-2 flex">
-              {Array.from({ length: result }, (_, i) => (
-                <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
-              ))}
-              {result < 5
-                ? Array.from({ length: 5 - result }, (_, i) => (
-                    <AiFillStar key={i} color={"#e3e3e3"} fontSize={"1.5rem"} />
-                  ))
-                : null}
+            <div className="flex flex-col">
+              <div className="stars mt-2 flex">
+                {Array.from({ length: result }, (_, i) => (
+                  <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
+                ))}
+                {result < 5
+                  ? Array.from({ length: 5 - result }, (_, i) => (
+                      <AiFillStar
+                        key={i}
+                        color={"#e3e3e3"}
+                        fontSize={"1.5rem"}
+                      />
+                    ))
+                  : null}{" "}
+                ({comments.length})
+              </div>
+              <div className="mt-2">
+                {user.email ? (
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter"
+                    className="hover:underline"
+                  >
+                    Donnez votre avis
+                  </button>
+                ) : (
+                  <Link to="/connexion">
+                    <button className="hover:underline">
+                      Connectez vous et donnez votre avis
+                    </button>
+                  </Link>
+                )}
+              </div>
+              <AddComment product={product} user={user.id} />
             </div>
-            <button className="addCart" onClick={() => onAdd(product)}>
-              AJOUTER AU PANIER
-            </button>
+            <div>
+              <button className="addCart" onClick={() => onAdd(product)}>
+                AJOUTER AU PANIER
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="ingredientsContainer">
         <div className="ingredientsdetails">
           <p className="font-semibold">Ingrédients :</p>
-          <p>{product.ingrédients}</p>
+          <p>{product.ingredients}</p>
         </div>
       </div>
       <div className="listeCommentaire">
         <div className="commentaires">
           <p className="font-semibold">Avis Clients :</p>
-          {comments
-            ? comments.map((comment, i) => (
+          {!showAll
+            ? comments
+                .sort((a, b) => b.rate_id - a.rate_id)
+                .slice(0, 3)
+                .map((comment, i) => (
+                  <div key={i}>
+                    <p>
+                      {" "}
+                      {comment.rate_id}/5 - {comment.comment}{" "}
+                    </p>
+                    <p></p>
+                  </div>
+                ))
+            : comments.map((comment, i) => (
                 <div key={i}>
-                  <p>Client : {comment.comment}</p>
+                  <p>
+                    {" "}
+                    {comment.rate_id}/5 - {comment.comment}{" "}
+                  </p>
                 </div>
-              ))
-            : "Loading..."}
+              ))}
+          {!showAll && comments ? (
+            <button className="hover:underline mt-3" onClick={showAllComments}>
+              VOIR TOUS LES COMMENTAIRES
+            </button>
+          ) : (
+            <button className="hover:underline mt-3" onClick={showAllComments}>
+              REDUIRE LES COMMENTAIRES
+            </button>
+          )}
         </div>
       </div>
     </div>

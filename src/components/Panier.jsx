@@ -13,7 +13,7 @@ const Panier = () => {
   const totalQtyPerProduct = cartItems.map((item) => item.qty);
 
   return (
-    <div className="flex flex-column">
+    <div className="flex flex-column mb-8">
       <hr />
       {cartItems.length === 0 && (
         <div>
@@ -69,8 +69,10 @@ const Panier = () => {
                         alt={item.title}
                         className="imagepanier"
                       />
-
-                      <Link to={`/products/${item.id}`} className="ml-2">
+                      <Link
+                        to={`/products/${item.id}`}
+                        className="ml-2 hover:underline"
+                      >
                         <p>{item.title}</p>
                       </Link>
                     </td>
@@ -134,7 +136,9 @@ const Panier = () => {
                   <Link className="continueShopping" to="/products">
                     Continuer mon shopping
                   </Link>
-                  <button className="commander">Commander</button>
+                  <Link to="/paiement">
+                    <button className="commander">Commander</button>
+                  </Link>
                 </div>
               </div>
             </div>

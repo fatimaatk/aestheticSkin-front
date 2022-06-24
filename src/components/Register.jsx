@@ -159,12 +159,12 @@ const Register = () => {
               M&apos;inscrire
             </button>
           </div>
-          {/* {result ? ( */}
-          <p className="text-center font-bold">
-            Votre inscription a bien été prise en compte. <br /> Vous allez être
-            redirigé vers la page de connexion.
-          </p>
-          {/* ) : null} */}
+          {result && (
+            <p className="text-center font-bold">
+              Votre inscription a bien été prise en compte. <br /> Vous allez
+              être redirigé vers la page de connexion.
+            </p>
+          )}
         </form>
       </div>
     </div>
