@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BsHeartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import PanierContext from "../contexts/PanierContext";
 import "./../styles/details.css";
 import FavorisContext from "../contexts/FavorisContext";
+import AddComments from "./Dashboard/AddComments";
+import { UserContext } from "../contexts/UserContext";
 
-const ProductDetails = () => {
+const ProductDetails = ({ isAuthenticated }) => {
   const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
-  const { cartItems, onAdd } = useContext(PanierContext);
+  const { onAdd } = useContext(PanierContext);
   const { favorites, handleFavoris } = useContext(FavorisContext);
+  const { user } = useContext(UserContext);
+
+  console.log(user);
 
   useEffect(() => {
     getProduct();
@@ -31,10 +36,9 @@ const ProductDetails = () => {
       });
   };
 
-  //à modifier
   const getComments = () => {
     axios
-      .get(`http://localhost:8000/comments/${params.id}`)
+      .get(`http://localhost:8000/comments/product/${params.id}`)
       .then((response) => {
         setComments(response.data);
       });
@@ -111,15 +115,42 @@ const ProductDetails = () => {
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
-            <div className="stars mt-2 flex">
-              {Array.from({ length: result }, (_, i) => (
-                <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
-              ))}
-              {result < 5
-                ? Array.from({ length: 5 - result }, (_, i) => (
-                    <AiFillStar key={i} color={"#e3e3e3"} fontSize={"1.5rem"} />
-                  ))
-                : null}
+            <div className="flex flex-col">
+              <div className="stars mt-2 flex border">
+                {Array.from({ length: result }, (_, i) => (
+                  <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
+                ))}
+                {result < 5
+                  ? Array.from({ length: 5 - result }, (_, i) => (
+                      <AiFillStar
+                        key={i}
+                        color={"#e3e3e3"}
+                        fontSize={"1.5rem"}
+                      />
+                    ))
+                  : null}
+              </div>
+              {user.email ? (
+                <>
+                  <span
+                    className="mt-2 cursor-pointer hover:underline"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter"
+                  >
+                    {" "}
+                    Donnez votre avis
+                  </span>
+                  <AddComments product={product} />
+                </>
+              ) : (
+                <Link
+                  to="/connexion"
+                  className="mt-2 cursor-pointer hover:underline"
+                >
+                  {" "}
+                  Connectez-vous afin de noter ce produit
+                </Link>
+              )}
             </div>
             <button className="addCart" onClick={() => onAdd(product)}>
               AJOUTER AU PANIER
@@ -130,18 +161,22 @@ const ProductDetails = () => {
       <div className="ingredientsContainer">
         <div className="ingredientsdetails">
           <p className="font-semibold">Ingrédients :</p>
-          <p>{product.ingrédients}</p>
+          <p>{product.ingredients}</p>
         </div>
       </div>
       <div className="listeCommentaire">
         <div className="commentaires">
           <p className="font-semibold">Avis Clients :</p>
           {comments
-            ? comments.map((comment, i) => (
-                <div key={i}>
-                  <p>Client : {comment.comment}</p>
-                </div>
-              ))
+            ? comments
+                .filter((comment) => comment.isVisible === 0)
+                .map((comment, i) => (
+                  <div key={i}>
+                    <p>
+                      {comment.email} : {comment.comment}
+                    </p>
+                  </div>
+                ))
             : "Loading..."}
         </div>
       </div>

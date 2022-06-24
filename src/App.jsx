@@ -165,7 +165,6 @@ const App = () => {
         })
         .then(({ data }) => {
           if (data) {
-            console.log("user is authenticated");
             setIsAuthenticated(true);
             setUser(JSON.parse(Cookies.get("token")));
           }

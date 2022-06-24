@@ -1,9 +1,6 @@
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { UserContext } from "../contexts/UserContext";
 import { BsCart, BsCartCheck, BsHeart } from "react-icons/bs";
 
 const NavBar = (props) => {

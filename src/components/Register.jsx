@@ -56,8 +56,8 @@ const Register = () => {
   };
 
   return (
-    <div className="connection flex flex-col">
-      <div className="loginDiv register border p-10 w-1/5">
+    <div className="connection flex flex-col mt-4 mb-5">
+      <div className="loginDiv register border p-10  w-1/5">
         <h2 className="register-h2 mt-1 text-center w-full z-10 font-semibold">
           INSCRIPTION
         </h2>
@@ -159,12 +159,12 @@ const Register = () => {
               M&apos;inscrire
             </button>
           </div>
-          {/* {result ? ( */}
-          <p className="text-center font-bold">
-            Votre inscription a bien été prise en compte. <br /> Vous allez être
-            redirigé vers la page de connexion.
-          </p>
-          {/* ) : null} */}
+          {result && (
+            <p className="text-center font-bold">
+              Votre inscription a bien été prise en compte. <br /> Vous allez
+              être redirigé vers la page de connexion.
+            </p>
+          )}
         </form>
       </div>
     </div>
