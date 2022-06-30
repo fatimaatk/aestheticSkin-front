@@ -1,15 +1,15 @@
-.footercontainer{
-  background-color: #E5E5E5;
+.footercontainer {
+  background-color: #e5e5e5;
   display: flex;
   flex-direction: column;
   padding-bottom: 1rem;
   padding-top: 1rem;
   margin-top: 1rem;
   justify-content: center;
+  min-height: 25vh;
 }
 
-.newsglobal{
-
+.newsglobal {
   display: flex;
   justify-content: space-around;
 }
@@ -18,12 +18,11 @@
   display: flex;
   justify-content: space-around;
   padding-top: 2rem;
-
 }
-.textfooter3{
+.textfooter3 {
   color: grey;
 }
-.iconefooter{
+.iconefooter {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -31,6 +30,6 @@
   font-size: 25px;
 }
 
-.footerinput{
+.footerinput {
   color: grey;
 }

@@ -7,8 +7,8 @@ import { AiFillStar } from "react-icons/ai";
 import PanierContext from "../contexts/PanierContext";
 import "./../styles/details.css";
 import FavorisContext from "../contexts/FavorisContext";
-import AddComments from "./Dashboard/AddComments";
 import { UserContext } from "../contexts/UserContext";
+import AddComment from "./AddComment";
 
 const ProductDetails = ({ isAuthenticated }) => {
   const navigate = useNavigate();
@@ -16,11 +16,10 @@ const ProductDetails = ({ isAuthenticated }) => {
   const [product, setProduct] = useState([]);
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
-  const { onAdd } = useContext(PanierContext);
+  const [showAll, setShowAll] = useState(false);
+  const { cartItems, onAdd } = useContext(PanierContext);
   const { favorites, handleFavoris } = useContext(FavorisContext);
   const { user } = useContext(UserContext);
-
-  console.log(user);
 
   useEffect(() => {
     getProduct();
@@ -28,6 +27,9 @@ const ProductDetails = ({ isAuthenticated }) => {
     getRates();
   }, [params.id]);
 
+  const showAllComments = () => {
+    setShowAll(!showAll);
+  };
   const getProduct = () => {
     axios
       .get(`http://localhost:8000/products/${params.id}`)
@@ -62,8 +64,9 @@ const ProductDetails = ({ isAuthenticated }) => {
   );
 
   const result = Math.round(sumWithInitial / allRates.length);
+
   return (
-    <div className="mainProduct">
+    <div className="mainProduct mb-10">
       <div className=" backProducts">
         <a
           href="#!"
@@ -108,15 +111,13 @@ const ProductDetails = ({ isAuthenticated }) => {
                 type="button"
               />
             </h1>
-
             <p className="detailCategory">{product.category}</p>
-
             <p className="detailDescription">{product.description}</p>
             <p className="detailContenance">
               Contenance : <br /> {product.contenance}
             </p>
             <div className="flex flex-col">
-              <div className="stars mt-2 flex border">
+              <div className="stars mt-2 flex">
                 {Array.from({ length: result }, (_, i) => (
                   <AiFillStar key={i} color={"#d8b01a"} fontSize={"1.5rem"} />
                 ))}
@@ -128,36 +129,37 @@ const ProductDetails = ({ isAuthenticated }) => {
                         fontSize={"1.5rem"}
                       />
                     ))
-                  : null}
+                  : null}{" "}
+                ({comments.length})
               </div>
-              {user.email ? (
-                <>
-                  <span
-                    className="mt-2 cursor-pointer hover:underline"
+              <div className="mt-2">
+                {user.email ? (
+                  <button
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModalCenter"
+                    className="hover:underline"
                   >
-                    {" "}
                     Donnez votre avis
-                  </span>
-                  <AddComments product={product} />
-                </>
-              ) : (
-                <Link
-                  to="/connexion"
-                  className="mt-2 cursor-pointer hover:underline"
-                >
-                  {" "}
-                  Connectez-vous afin de noter ce produit
-                </Link>
-              )}
+                  </button>
+                ) : (
+                  <Link to="/connexion">
+                    <button className="hover:underline">
+                      Connectez vous et donnez votre avis
+                    </button>
+                  </Link>
+                )}
+              </div>
+              <AddComment product={product} user={user.id} />
             </div>
-            <button className="addCart" onClick={() => onAdd(product)}>
-              AJOUTER AU PANIER
-            </button>
+            <div>
+              <button className="addCart" onClick={() => onAdd(product)}>
+                AJOUTER AU PANIER
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="ingredientsContainer">
         <div className="ingredientsdetails">
           <p className="font-semibold">Ingrédients :</p>
@@ -167,17 +169,36 @@ const ProductDetails = ({ isAuthenticated }) => {
       <div className="listeCommentaire">
         <div className="commentaires">
           <p className="font-semibold">Avis Clients :</p>
-          {comments
+          {!showAll
             ? comments
-                .filter((comment) => comment.isVisible === 0)
+                .sort((a, b) => b.rate_id - a.rate_id)
+                .slice(0, 3)
                 .map((comment, i) => (
                   <div key={i}>
                     <p>
-                      {comment.email} : {comment.comment}
+                      {" "}
+                      {comment.rate_id}/5 - {comment.comment}{" "}
                     </p>
+                    <p></p>
                   </div>
                 ))
-            : "Loading..."}
+            : comments.map((comment, i) => (
+                <div key={i}>
+                  <p>
+                    {" "}
+                    {comment.rate_id}/5 - {comment.comment}{" "}
+                  </p>
+                </div>
+              ))}
+          {!showAll && comments ? (
+            <button className="hover:underline mt-3" onClick={showAllComments}>
+              VOIR TOUS LES COMMENTAIRES
+            </button>
+          ) : (
+            <button className="hover:underline mt-3" onClick={showAllComments}>
+              REDUIRE LES COMMENTAIRES
+            </button>
+          )}
         </div>
       </div>
     </div>

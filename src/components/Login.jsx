@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/login.css";
 import Cookies from "js-cookie";
@@ -10,6 +10,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const location = useLocation();
+
+  console.log(location);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
@@ -18,7 +22,11 @@ const Login = () => {
         if (data.error) setError(data.error);
         else {
           Cookies.set("token", JSON.stringify(data));
-          window.location.href = "/";
+          if (location.pathname === "/monpanier/resume") {
+            window.location.href = "/monpanier/resume";
+          } else if (location.pathname === "/connexion") {
+            window.location.href = "/";
+          }
         }
       });
     } else {
@@ -27,8 +35,6 @@ const Login = () => {
       );
     }
   };
-
-  console.log(error);
 
   return (
     <div className="loginDiv p-10 login-block">

@@ -1,17 +1,15 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import ProductContext from "./contexts/ProductsContext.js";
 import PanierContext from "./contexts/PanierContext.js";
 import { Home } from "./components/Home.jsx";
-import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import DashboardAdmin from "./components/DashboardAdmin.jsx";
 import { AuthContext } from "./contexts/AuthContext.js";
 import { UserContext } from "./contexts/UserContext.js";
 import FavorisContext from "./contexts/FavorisContext.js";
-import ProtectedRoute from "./protected/ProtectedRoute.jsx";
 import Connection from "./components/Connection.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Products from "./components/Products.jsx";
@@ -28,6 +26,10 @@ import DashboardProduct from "./components/Dashboard/DashboardProduct.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "./Store/ProductsSlice.js";
 import DashboardAddNew from "./components/Dashboard/DashboardAddNew.jsx";
+import Checkout from "./components/Checkout.jsx";
+import ProtectedRouteAdmin from "./protected/ProtectedRouteAdmin.jsx";
+import CheckoutInformation from "./components/CheckoutInformation.jsx";
+import ConfirmOrder from "./components/ConfirmOrder.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -222,7 +224,7 @@ const App = () => {
                   />
                   <Route path="/connexion" element={<Connection />} />
                   <Route path="/register" element={<Register />} />
-                  <Route path="/admin" element={<ProtectedRoute />}>
+                  <Route path="/admin" element={<ProtectedRouteAdmin />}>
                     <Route path="dashboard" element={<DashboardAdmin />} />
                     <Route
                       path="dashboard/products"
@@ -248,6 +250,15 @@ const App = () => {
                   <Route path="/monpanier" element={<Panier />} />
                   <Route path="/favoris" element={<Favoris />} />
                   <Route path="/moncompte" element={<MonCompte />} />
+                  <Route path="/monpanier/resume" element={<Checkout />} />
+                  <Route
+                    path="/monpanier/informations"
+                    element={<CheckoutInformation />}
+                  />
+                  <Route
+                    path="/monpanier/paiement"
+                    element={<ConfirmOrder />}
+                  />
                 </Routes>
                 <Footer />
               </PanierContext.Provider>
