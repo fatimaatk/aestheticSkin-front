@@ -22,6 +22,7 @@ const CartSummary = () => {
   useEffect(() => {
     const CartCookies = Cookies.set("Id_Cart", cartId);
     console.log(CartCookies, "cartcookies");
+    console.log("cartId");
     getAllIdFromCart();
     if (cartId.filter((x) => x === CartCookies)) {
       console.log("oui");
