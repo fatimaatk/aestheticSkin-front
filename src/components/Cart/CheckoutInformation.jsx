@@ -1,9 +1,9 @@
 import React from "react";
-import { ProgressBarInfo } from "./Common/ProgressBar";
+import { ProgressBarInfo } from "../Common/ProgressBar";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
-import "./../styles/checkout.css";
+import { UserContext } from "./../../contexts/UserContext";
+import "./../../styles/checkout.css";
 import { useState } from "react";
 
 const CheckoutInformation = () => {

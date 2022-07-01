@@ -26,10 +26,10 @@ import DashboardProduct from "./components/Dashboard/DashboardProduct.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "./Store/ProductsSlice.js";
 import DashboardAddNew from "./components/Dashboard/DashboardAddNew.jsx";
-import Checkout from "./components/Checkout.jsx";
+import Checkout from "./components/Cart/Checkout.jsx";
 import ProtectedRouteAdmin from "./protected/ProtectedRouteAdmin.jsx";
-import CheckoutInformation from "./components/CheckoutInformation.jsx";
-import ConfirmOrder from "./components/ConfirmOrder.jsx";
+import CheckoutInformation from "./components/Cart/CheckoutInformation.jsx";
+import ConfirmOrder from "./components/Cart/ConfirmOrder.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

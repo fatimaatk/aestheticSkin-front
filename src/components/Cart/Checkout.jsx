@@ -1,14 +1,13 @@
 import React from "react";
 import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "./../../contexts/UserContext";
 import CartSummary from "./CartSummary";
-import Login from "./Login";
-import { ProgressBarCart } from "./Common/ProgressBar";
+import Login from "../Login";
+import { ProgressBarCart } from "../Common/ProgressBar";
 
 const Checkout = () => {
   const { user } = useContext(UserContext);
 
-  console.log(user);
   return (
     <>
       {user.email ? (
