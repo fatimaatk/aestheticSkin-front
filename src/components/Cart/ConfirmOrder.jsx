@@ -4,15 +4,64 @@ import PanierContext from "./../../contexts/PanierContext";
 import { Link, useNavigate } from "react-router-dom";
 import { ProgressBarConfirm } from "../Common/ProgressBar";
 import Payment from "./Payment";
-
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 const ConfirmOrder = () => {
   const { cartItems } = useContext(PanierContext);
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const shippingPrice = itemsPrice > 50 ? 0 : 4.5;
   const totalPrice = itemsPrice + shippingPrice;
-
+  const [cartInfo, setCartInfo] = useState([]);
+  const [paiement, setPaiement] = useState();
   const navigate = useNavigate();
+
+  const getInfoCart = () => {
+    axios
+      .get(`http://localhost:8000/cart/infos/${Cookies.get("Id_Cart")}`)
+      .then((response) => {
+        setCartInfo(response.data[0]);
+      });
+  };
+
+  const handleSubmitOrder = async () => {
+    await cartItems.map((product) =>
+      axios
+        .post(`http://localhost:8000/cart/items`, {
+          cart_id: Cookies.get("Id_Cart"),
+          product_id: product.id,
+          qty: product.qty,
+        })
+        .then(({ data }) => {
+          if (data.error) console.log(data.error);
+          else {
+            console.log("produits ajoutés");
+          }
+        })
+    );
+    await axios
+      .put(`http://localhost:8000/cart/paiement/${Cookies.get("Id_Cart")}`, {
+        type_paiement: paiement,
+        status_id: 1,
+        price_delivery: shippingPrice,
+        total_price: totalPrice,
+      })
+      .then(({ data }) => {
+        if (data.error) console.log(data.error);
+        else {
+          Cookies.set("Id_Cart", "");
+          //window.location.href = "/";
+        }
+      });
+  };
+
+  useEffect(() => {
+    getInfoCart();
+  }, []);
+
+  console.log(paiement);
   return (
     <>
       <ProgressBarConfirm />
@@ -52,14 +101,18 @@ const ConfirmOrder = () => {
           <div className="px-8 border-b">
             <ul className="py-6 space-y-6 px-8">
               <li className="grid grid-cols-4 gap-2 border-b-1 flex justify-center items-center">
-                <div className="flex flex-col col-span-4 pt-2 justify-center items-center">
-                  LIVRAISON : 23 rue de l'amiral courbet bat 2a p 9 59000 LILLE
+                <div className="flex flex-col col-span-4 pt-2 justify-center items-center uppercase">
+                  LIVRAISON : {cartInfo.prenom_delivery} {cartInfo.nom_delivery}{" "}
+                  {cartInfo.adress_delivery} {cartInfo.codePostal_delivery}{" "}
+                  {cartInfo.ville_delivery}
                 </div>
               </li>
               <li className="grid grid-cols-4 gap-2 border-b-1 flex justify-center items-center">
-                <div className="flex flex-col col-span-4 pt-2 justify-center items-center">
-                  FACTURATION : 23 rue de l'amiral courbet bat 2a p 9 59000
-                  LILLE
+                <div className="flex flex-col col-span-4 pt-2 justify-center items-center uppercase">
+                  FACTURATION : {cartInfo.prenom_shipping}{" "}
+                  {cartInfo.nom_shipping}
+                  {cartInfo.adress_shipping} {cartInfo.codePostal_shipping}{" "}
+                  {cartInfo.ville_shipping}
                 </div>
               </li>
             </ul>
@@ -87,7 +140,7 @@ const ConfirmOrder = () => {
             <span>Total</span>
             <strong>{totalPrice.toFixed(2)}€</strong>
           </div>
-          <Payment />
+          <Payment setPaiement={setPaiement} />
           <div className="flex justify-center">
             <a
               href="#!"
@@ -98,7 +151,10 @@ const ConfirmOrder = () => {
             </a>
 
             <Link to="/monpanier/paiement">
-              <button className="p-2 m-6 w-48 rounded text-white bg-neutral-300 hover:bg-pink-600">
+              <button
+                onClick={handleSubmitOrder}
+                className="p-2 m-6 w-48 rounded text-white bg-neutral-300 hover:bg-pink-600"
+              >
                 PAIEMENT
               </button>
             </Link>

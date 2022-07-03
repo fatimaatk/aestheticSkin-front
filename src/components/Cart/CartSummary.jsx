@@ -2,73 +2,10 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import PanierContext from "./../../contexts/PanierContext";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
 
 const CartSummary = () => {
-  const [cartId, setCartId] = useState([]);
-  const [cookiesCart, setCookiesCart] = useState([]);
   const { cartItems } = useContext(PanierContext);
 
-  const getAllIdFromCart = () => {
-    axios.get(`http://localhost:8000/cart/allCartId`).then((response) => {
-      setCartId(response.data.map((x) => x.id));
-    });
-  };
-
-  let idCart = 1;
-  console.log(cartId, "cartId");
-
-  useEffect(() => {
-    const CartCookies = Cookies.set("Id_Cart", cartId);
-    console.log(CartCookies, "cartcookies");
-    console.log("cartId");
-    getAllIdFromCart();
-    if (cartId.filter((x) => x === CartCookies)) {
-      console.log("oui");
-      console.log(JSON.stringify(CartCookies));
-      cartItems.map((product) =>
-        axios
-          .put(`http://localhost:8000/cart/items/${CartCookies}`, {
-            product_id: product.id,
-            qty: product.qty,
-          })
-          .then(({ data }) => {
-            if (data.error) console.log(data.error);
-            else {
-              console.log("produits mis à jour");
-            }
-          })
-      );
-    } else {
-      axios
-        .post("http://localhost:3000/cart/new", { id: idCart++ })
-        .then(({ data }) => {
-          if (data.error) console.log(data.error);
-          else {
-            console.log("nouvelle commande");
-          }
-        });
-      cartItems.map((product) =>
-        axios
-          .post(`http://localhost:8000/cart/items`, {
-            cart_id: 1,
-            product_id: product.id,
-            qty: product.qty,
-          })
-          .then(({ data }) => {
-            if (data.error) console.log(data.error);
-            else {
-              console.log("produits ajoutés");
-            }
-          })
-      );
-
-      console.log("nouveau");
-    }
-  }, [cartItems]);
-
-  console.log(cartId, "cartid");
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const shippingPrice = itemsPrice > 50 ? 0 : 4.5;
   const totalPrice = itemsPrice + shippingPrice;
