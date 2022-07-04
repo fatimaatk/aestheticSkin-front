@@ -1,17 +1,13 @@
-import "./../styles/productcard.css";
+import "./../../styles/productcard.css";
 import { useContext } from "react";
-import PanierContext from "../contexts/PanierContext";
+import PanierContext from "./../../contexts/PanierContext";
 import { BsHeartFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import FavorisContext from "../contexts/FavorisContext";
+import FavorisContext from "./../../contexts/FavorisContext";
 
 const ProductCard = ({ product }) => {
   const { onAdd } = useContext(PanierContext);
-  const {
-    favorites,
-    handleFavoris
-  } = useContext(FavorisContext);
-
+  const { favorites, handleFavoris } = useContext(FavorisContext);
 
   return (
     <div className="productCard w-60 mb-4">
@@ -37,13 +33,12 @@ const ProductCard = ({ product }) => {
                   : "notFavorite"
               }
               onClick={() => {
-                handleFavoris(product)
+                handleFavoris(product);
               }}
-              type='button'
-
+              type="button"
             />
           </div>
-         
+
           <button onClick={() => onAdd(product)} className="add">
             Ajout rapide
           </button>

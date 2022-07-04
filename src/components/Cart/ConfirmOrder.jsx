@@ -8,15 +8,17 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-const ConfirmOrder = () => {
+const ConfirmOrder = ({ RemoveAll }) => {
   const { cartItems } = useContext(PanierContext);
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
   const shippingPrice = itemsPrice > 50 ? 0 : 4.5;
   const totalPrice = itemsPrice + shippingPrice;
   const [cartInfo, setCartInfo] = useState([]);
-  const [paiement, setPaiement] = useState();
+  const [paiement, setPaiement] = useState("");
   const navigate = useNavigate();
+
+  let date = new Date().toISOString().slice(0, 10);
 
   const getInfoCart = () => {
     axios
@@ -47,12 +49,13 @@ const ConfirmOrder = () => {
         status_id: 1,
         price_delivery: shippingPrice,
         total_price: totalPrice,
+        date: date,
       })
       .then(({ data }) => {
         if (data.error) console.log(data.error);
         else {
           Cookies.set("Id_Cart", "");
-          //window.location.href = "/";
+          RemoveAll();
         }
       });
   };
@@ -61,7 +64,6 @@ const ConfirmOrder = () => {
     getInfoCart();
   }, []);
 
-  console.log(paiement);
   return (
     <>
       <ProgressBarConfirm />
@@ -150,7 +152,7 @@ const ConfirmOrder = () => {
               PRECEDENT
             </a>
 
-            <Link to="/monpanier/paiement">
+            <Link to={`/order/${Cookies.get("Id_Cart")}`}>
               <button
                 onClick={handleSubmitOrder}
                 className="p-2 m-6 w-48 rounded text-white bg-neutral-300 hover:bg-pink-600"

@@ -1,18 +1,18 @@
+import { UserContext } from "./../../../contexts/UserContext";
 import { useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
 import { FiEdit2 } from "react-icons/fi";
 import axios from "axios";
 
-const EditCodePostal = ({ codePostal }) => {
+const EditVille = ({ ville }) => {
   const { user } = useContext(UserContext);
   const [edit, setEdit] = useState(false);
-  const [code, setCode] = useState([]);
+  const [city, setCity] = useState([]);
   const [error, setError] = useState([]);
 
   const handleSubmit = async () => {
-    const update = { codePostal: code };
+    const update = { ville: city };
     await axios
-      .put(`http://localhost:8000/user/update/codePostal/${user.id}`, update)
+      .put(`http://localhost:8000/user/update/ville/${user.id}`, update)
       .then(({ data }) => {
         if (data.error) {
           setError(data.error);
@@ -22,20 +22,20 @@ const EditCodePostal = ({ codePostal }) => {
 
   return (
     <div className="bg-neutral-100 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center h-1/5">
-      <dt className="text-l font-medium text-gray-500 "> CODE POSTAL : </dt>
+      <dt className="text-l font-medium text-gray-500 "> VILLE : </dt>
       <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 ">
         <div className="flex justify-around p-2 ">
           <div className="w-full">
             <div className="flex justify-around flex-col p-4">
-              <p className="">{codePostal}</p>
+              <p className="">{ville}</p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className={edit ? "flex mt-4" : "hidden"}>
                 <textarea
                   className="w-full h-full border border-solid border-gray-400 py-2 px-4 text-gray-700"
                   type="text"
-                  placeholder="Modifier votre code postal"
-                  onChange={(e) => setCode(e.target.value)}
+                  placeholder="Modifier votre ville"
+                  onChange={(e) => setCity(e.target.value)}
                 />
                 <button className="bg-transparent  text-gray-600 font-semibold hover:text-black py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                   Enregistrer
@@ -52,4 +52,4 @@ const EditCodePostal = ({ codePostal }) => {
   );
 };
 
-export default EditCodePostal;
+export default EditVille;

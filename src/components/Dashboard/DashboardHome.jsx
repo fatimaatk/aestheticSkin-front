@@ -9,11 +9,13 @@ const DashboardHome = () => {
   const { products, loading } = useSelector((state) => state.products);
   const [accounts, setAccounts] = useState([]);
   const [comments, setComments] = useState([]);
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
     dispatch(getProducts());
     getAccounts();
     getComments();
+    getOrder();
   }, []);
 
   const getAccounts = () => {
@@ -27,6 +29,12 @@ const DashboardHome = () => {
     });
   };
 
+  const getOrder = () => {
+    axios.get(`http://localhost:8000/cart/allCartId`).then((response) => {
+      setOrder(response.data);
+    });
+  };
+
   return (
     <div className="flex justify-center p-20 text-center">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-solid w-1/0">
@@ -37,6 +45,14 @@ const DashboardHome = () => {
         </div>
         <div className="border-t border-gray-200">
           <dl>
+            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="text-l font-medium text-gray-500 ">
+                Nombre de commandes
+              </dt>
+              <dd className="mt-1 text-l text-gray-900 sm:mt-0 sm:col-span-2 r">
+                {order.length}
+              </dd>
+            </div>
             <div className="bg-neutral-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-l font-medium text-gray-500 ">
                 Nombre de produits en ligne

@@ -24,7 +24,35 @@
   padding-bottom: 2rem;
   padding-left: 2rem;
 }
+.menu-search {
+  display: flex;
+  background-color: #e5e5e5;
+  align-items: center;
+  justify-content: center;
 
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+}
+
+.searchBar {
+  background-color: white;
+  color: white;
+  width: 30rem;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchArea {
+  width: 100%;
+
+  color: black;
+  outline: none;
+}
 .logo {
   display: flex;
   flex-direction: column;
@@ -42,6 +70,6 @@
   justify-content: space-around;
 }
 
-.liMenu:hover {
-  color: black;
+.liMenu {
+  padding: 0.5rem;
 }

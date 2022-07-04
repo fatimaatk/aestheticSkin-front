@@ -4,10 +4,10 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BsHeartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
-import PanierContext from "../contexts/PanierContext";
-import "./../styles/details.css";
-import FavorisContext from "../contexts/FavorisContext";
-import { UserContext } from "../contexts/UserContext";
+import PanierContext from "./../../contexts/PanierContext";
+import "./../../styles/details.css";
+import FavorisContext from "./../../contexts/FavorisContext";
+import { UserContext } from "./../../contexts/UserContext";
 import AddComment from "./AddComment";
 
 const ProductDetails = ({ isAuthenticated }) => {

@@ -12,8 +12,8 @@ import { UserContext } from "./contexts/UserContext.js";
 import FavorisContext from "./contexts/FavorisContext.js";
 import Connection from "./components/Connection.jsx";
 import NavBar from "./components/NavBar.jsx";
-import Products from "./components/Products.jsx";
-import ProductDetails from "./components/ProductDetails.jsx";
+import Products from "./components/products/Products.jsx";
+import ProductDetails from "./components/products/ProductDetails.jsx";
 import Favoris from "./components/Favoris.jsx";
 import Panier from "./components/Panier.jsx";
 import Footer from "./components/Footer.jsx";
@@ -30,6 +30,9 @@ import Checkout from "./components/Cart/Checkout.jsx";
 import ProtectedRouteAdmin from "./protected/ProtectedRouteAdmin.jsx";
 import CheckoutInformation from "./components/Cart/CheckoutInformation.jsx";
 import ConfirmOrder from "./components/Cart/ConfirmOrder.jsx";
+import OrderValid from "./components/Cart/OrderValid.jsx";
+import DashboardCommandes from "./components/Dashboard/DashboardCommandes.jsx";
+import ProductsResult from "./components/products/productsResult.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -151,6 +154,11 @@ const App = () => {
     }
   };
 
+  const RemoveAll = () => {
+    localStorage.setItem("items", []);
+    setCartItems([]);
+  };
+
   useEffect(() => {
     getUser();
     getProducts();
@@ -219,6 +227,11 @@ const App = () => {
                   />
                   <Route
                     exact
+                    path="/search/:search"
+                    element={<ProductsResult cartItems={cartItems} />}
+                  />
+                  <Route
+                    exact
                     path="/products/:id"
                     element={<ProductDetails cartItems={cartItems} />}
                   />
@@ -246,6 +259,10 @@ const App = () => {
                       path="dashboard/comptes"
                       element={<DashboardAccount />}
                     />
+                    <Route
+                      path="dashboard/commandes"
+                      element={<DashboardCommandes />}
+                    />
                   </Route>
                   <Route path="/monpanier" element={<Panier />} />
                   <Route path="/favoris" element={<Favoris />} />
@@ -257,8 +274,9 @@ const App = () => {
                   />
                   <Route
                     path="/monpanier/paiement"
-                    element={<ConfirmOrder />}
+                    element={<ConfirmOrder RemoveAll={RemoveAll} />}
                   />
+                  <Route path="/order/:id" element={<OrderValid />} />
                 </Routes>
                 <Footer />
               </PanierContext.Provider>

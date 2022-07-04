@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../contexts/UserContext";
-import { FiEdit2 } from "react-icons/fi";
+import { UserContext } from "./../../../contexts/UserContext";
 import axios from "axios";
 import EditFirstname from "./EditFirstname";
 import EditLastname from "./EditLastname";

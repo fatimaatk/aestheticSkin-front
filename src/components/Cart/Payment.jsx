@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Field } from "react-final-form";
 import { FaCcPaypal, FaCcVisa, FaCcMastercard } from "react-icons/fa";
 
-const Payment = () => {
-  const [paiement, setPaiement] = useState();
-
-  console.log(paiement);
+const Payment = ({ setPaiement }) => {
   return (
     <ul className="py-6 border-b border-t space-y-6 px-8">
       <li className="flex items-center justify-center gap-2">
