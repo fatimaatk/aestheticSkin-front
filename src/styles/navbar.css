@@ -49,10 +49,10 @@
 
 .searchArea {
   width: 100%;
-
   color: black;
   outline: none;
 }
+
 .logo {
   display: flex;
   flex-direction: column;
@@ -72,4 +72,51 @@
 
 .liMenu {
   padding: 0.5rem;
+}
+
+.menuResponsive,
+.ulMenuResponsive,
+.searchBarResponsive .searchAreaRersponsive {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .menu {
+    justify-content: space-around;
+  }
+  .ulMenu {
+    display: none;
+  }
+  .menuResponsive {
+    display: contents;
+  }
+  .ulMenuResponsive {
+    display: flex;
+    background-color: #e5e5e5;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    padding-bottom: 20px;
+  }
+
+  .searchBarResponsive {
+    background-color: white;
+    color: white;
+    width: 80%;
+    padding: 0.5rem;
+    border-radius: 30px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid black 1px;
+    margin-bottom: 10px;
+  }
+
+  .searchAreaRersponsive {
+    color: black;
+    outline: none;
+  }
 }

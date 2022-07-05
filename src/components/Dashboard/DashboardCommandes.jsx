@@ -37,7 +37,6 @@ const DashboardCommandes = () => {
     totalPage.push(i);
   }
 
-  console.log(orders);
   return (
     <div>
       <header className="bg-white shadow">

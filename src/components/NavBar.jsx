@@ -2,10 +2,12 @@ import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { BsCart, BsCartCheck, BsHeart, BsSearch } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 const NavBar = (props) => {
   const { cartItems, isAuthenticated } = props;
   const [result, setResult] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleSearch = (e) => {
     setResult(e.target.value);
@@ -37,6 +39,13 @@ const NavBar = (props) => {
             <h1 className="logo1 text-sm text-right">SKIN</h1>
           </Link>
         </div>
+        <div className="menuResponsive border m-10">
+          <AiOutlineMenu
+            className="text-2xl"
+            onClick={() => setShowMenu(!showMenu)}
+          />
+        </div>
+
         <ul className="ulMenu cursor-pointer">
           <div className="searchBar">
             <input
@@ -105,6 +114,58 @@ const NavBar = (props) => {
           )}
         </ul>
       </div>
+      {showMenu && (
+        <ul className="ulMenuResponsive ">
+          <div className="searchBarResponsive">
+            <input
+              className="searchAreaRersponsive"
+              value={result}
+              onChange={handleSearch}
+              type="text"
+              placeholder="Rechercher un produit ..."
+            />
+            <Link to={`/search/${result}`}>
+              <button className="flex justify-center">
+                <BsSearch color="black" />
+              </button>
+            </Link>
+          </div>
+          <Link to="/products">
+            <li className="liMenu">PRODUITS</li>
+          </Link>
+
+          <Link to="/favoris">
+            <li className="liMenu">FAVORIS</li>
+          </Link>
+
+          <Link to="/monpanier">
+            <li className="liMenu">PANIER</li>
+          </Link>
+          {isAuthenticated && tokenObj.role === "0" && (
+            <Link to="/moncompte">
+              <li className="liMenu">MON COMPTE</li>
+            </Link>
+          )}
+
+          {isAuthenticated && tokenObj.role === "1" && (
+            <div className="flex flex-row">
+              <Link to="/admin/dashboard">
+                <li className="liMenu">DASHBOARD</li>
+              </Link>{" "}
+            </div>
+          )}
+
+          {isAuthenticated ? (
+            <li className="liMenu" onClick={() => logout()}>
+              DECONNEXION
+            </li>
+          ) : (
+            <Link to="/connexion">
+              <li className="liMenu">MON COMPTE</li>
+            </Link>
+          )}
+        </ul>
+      )}
     </div>
   );
 };

@@ -15,9 +15,10 @@
 a:hover {
   color: black;
 }
-.detaildGlobal {
+.detailGlobal {
   display: flex;
   justify-content: center;
+  width: 100vw;
 }
 .detailImage {
   display: flex;
@@ -110,4 +111,21 @@ a:hover {
   inline-size: 50%;
   gap: 20px;
   overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 768px) {
+  .detailImage {
+    display: flex;
+    flex-direction: column;
+  }
+  .image2,
+  .image3 {
+    display: none;
+  }
+  .detailProduct {
+    margin-top: 1rem;
+    margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
 }

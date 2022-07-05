@@ -1,6 +1,5 @@
 .mainProducts {
   display: flex;
-
   margin-top: 4rem;
 }
 
@@ -17,6 +16,9 @@
 
 .productsList {
   margin-left: 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
 }
 
 .filtercategorie {
@@ -27,4 +29,70 @@
   justify-content: space-between;
   margin-bottom: 2rem;
   padding-left: 2rem;
+}
+
+.filterMenu {
+  display: none;
+}
+
+.filteredButton {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 1150px) {
+  .productsList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .filtercategorie {
+    display: none;
+  }
+  .filter {
+    border: none;
+    margin-bottom: 1rem;
+  }
+  .filterMenu {
+    display: contents;
+  }
+  .filteredButton {
+    visibility: visible;
+  }
+  .productListMain {
+    margin-top: 2rem;
+  }
+
+  .mainProducts {
+    flex-direction: column;
+  }
+  .productsList {
+    grid-template-columns: 1fr 1fr;
+    margin-left: 2rem;
+    gap: 3rem;
+    align-self: center;
+  }
+
+  .filterDiv {
+    width: 100vw;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+  }
+  .filtercategorieResponsive {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 1rem 0 1rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .mainProducts {
+    flex-direction: column;
+  }
+  .productsList {
+    grid-template-columns: 1fr;
+    align-self: center;
+    margin-left: 0;
+  }
 }

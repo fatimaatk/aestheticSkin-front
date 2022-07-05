@@ -2,6 +2,7 @@ import ProductCard from "./ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./../../styles/products.css";
+import { AiOutlineFilter, AiFillFilter } from "react-icons/ai";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -9,6 +10,7 @@ const Products = () => {
   const [texture, setTexture] = useState();
   const [categoryIsSelected, setCategoryIsSelected] = useState({});
   const [textureIsSelected, setTextureIsSelected] = useState({});
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     const isCategorySelected = {};
@@ -78,7 +80,80 @@ const Products = () => {
   return (
     <div className="mainProducts">
       <div className="filter">
-        <h1 className="pl-8 text-xl">FILTRES </h1>
+        <div className="filterDiv flex items-center gap-20">
+          <h1 className="pl-8 text-xl">FILTRES </h1>
+
+          {showFilter ? (
+            <AiFillFilter
+              className="filteredButton text-2xl"
+              type="button"
+              onClick={() => setShowFilter(!showFilter)}
+            />
+          ) : (
+            <AiOutlineFilter
+              className="filteredButton text-2xl"
+              type="button"
+              onClick={() => setShowFilter(!showFilter)}
+            />
+          )}
+        </div>
+        {showFilter && (
+          <div className="filterMenu mb-5">
+            <ul className="filtercategorieResponsive ">
+              <h2 className="font-bold text-lg">CATEGORIES</h2>
+              {category
+                ? category.map((category, i) => (
+                    <div
+                      className="flex items-center justify-between w-48"
+                      key={i}
+                    >
+                      <label className="uppercase">
+                        {category.category_title}
+                      </label>
+                      <input
+                        type="checkbox"
+                        id="textures"
+                        name="textures"
+                        onClick={() =>
+                          setCategoryIsSelected({
+                            ...categoryIsSelected,
+                            [category.id]: !categoryIsSelected[category.id],
+                          })
+                        }
+                      />
+                    </div>
+                  ))
+                : null}
+            </ul>
+            <div className="filtercategorieResponsive mt-2">
+              <h2 className="font-bold text-lg">TEXTURE</h2>
+              {texture
+                ? texture.map((texture, i) => (
+                    <div
+                      className="flex items-center justify-between w-48"
+                      key={i}
+                    >
+                      <label className="uppercase">
+                        {texture.texture_title}
+                      </label>
+                      <input
+                        type="checkbox"
+                        id="textures"
+                        name="textures"
+                        onClick={() =>
+                          setTextureIsSelected({
+                            ...textureIsSelected,
+                            [texture.id]: !textureIsSelected[texture.id],
+                          })
+                        }
+                      />
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+        )}
+
         <ul className="filtercategorie mt-20">
           <h2 className="font-bold text-lg">CATEGORIES</h2>
           {category
@@ -122,13 +197,17 @@ const Products = () => {
             : null}
         </div>
       </div>
-      <div className="productListMain ">
+      <div className="productListMain">
         <div className="flex justify-center flex-col">
           <div className="ml-24 mr-36 mb-10 flex justify-between">
             <h1 className="text-2xl font-bold">TOUS LES PRODUITS</h1>
           </div>
 
-          <div className="productsList  grid grid-rows-2 grid-flow-col gap-4">
+          <div
+            className="productsList 
+
+           "
+          >
             {arrayTexture.includes(true)
               ? products
                   .filter((product) => textureIsSelected[product.texture_id])

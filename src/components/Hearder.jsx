@@ -20,17 +20,13 @@ const Header = () => {
             className="active"
             aria-current="true"
             aria-label="Slide 1"
-          >
-           
-          </button>
+          ></button>
           <button
             type="button"
             data-bs-target="#carouselExampleCaptions"
             data-bs-slide-to="1"
             aria-label="Slide 2"
-          >
-         
-          </button>
+          ></button>
         </div>
 
         <div className="carousel-inner relative w-full overflow-hidden">
@@ -45,14 +41,12 @@ const Header = () => {
                     ACHETER
                   </button>
                 </Link>
-              
               </div>
             </div>
           </div>
           <div className="carousel-item relative float-left w-full">
             <div className="headerContent">
               <img className="headerImg" src={brandCreme2} alt="marque" />
-             
 
               <div className="headerText">
                 <p className="text-4xl">DES PRODUITS ADAPTÉS</p>
@@ -62,7 +56,6 @@ const Header = () => {
                     ACHETER
                   </button>
                 </Link>
-            
               </div>
             </div>
           </div>

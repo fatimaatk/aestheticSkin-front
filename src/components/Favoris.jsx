@@ -7,7 +7,6 @@ import routine1 from "./../assets/routine1.jpeg";
 const Favoris = () => {
   const { favorites, onRemoveFav } = useContext(FavorisContext);
 
-  console.log(favorites)
   return (
     <div className="flex flex-col justify-center items-center mt-5 mb-5">
       <h1 className="text-xl">MES FAVORIS</h1>
@@ -35,11 +34,11 @@ const Favoris = () => {
       <div className="favorisContainer mt-4">
         {favorites
           ? favorites.map((fav, i) => (
-            <div
-            key={i}
-            className="favoris flex items-center justify-center flex-col"
-            >
-                 <Link to={`/products/${fav.id}`}>
+              <div
+                key={i}
+                className="favoris flex items-center justify-center flex-col"
+              >
+                <Link to={`/products/${fav.id}`}>
                   <img src={fav.image1} alt={fav.title} className="w-full" />
                 </Link>
                 <p>{fav.title} </p>
