@@ -97,20 +97,18 @@ const ProductDetails = ({ isAuthenticated }) => {
           </div>
 
           <div className="detailProduct">
-            <h1 className="detailTitle">
-              {product.title}
-              <BsHeartFill
-                className={
-                  favorites.find((x) => x.id === product.id)
-                    ? "isFavorite"
-                    : "notFavorite"
-                }
-                onClick={() => {
-                  handleFavoris(product);
-                }}
-                type="button"
-              />
-            </h1>
+            <h1 className="detailTitle">{product.title}</h1>
+            <BsHeartFill
+              className={
+                favorites.find((x) => x.id === product.id)
+                  ? "isFavorite text-xl"
+                  : "notFavorite"
+              }
+              onClick={() => {
+                handleFavoris(product);
+              }}
+              type="button"
+            />
             <p className="detailCategory">{product.category}</p>
             <p className="detailDescription">{product.description}</p>
             <p className="detailContenance">

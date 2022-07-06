@@ -11,7 +11,6 @@
 }
 
 .paniercomplete {
-  width: 60%;
   margin-top: 2rem;
   display: flex;
   justify-content: center;
@@ -72,6 +71,7 @@
   margin: 20px;
   background-color: white;
   padding: 15px;
+  border: solid 1px black;
 }
 .totalItemPanier {
   margin: 20px;
@@ -95,4 +95,65 @@
   width: 12rem;
   padding: 10px;
   text-align: center;
+}
+
+@media screen and (max-width: 1400px) {
+  .mainpanier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .totalpanier {
+    width: 100%;
+
+    border: solid 1px #e5e5e5;
+  }
+  .tableCart {
+    width: 100%;
+    margin: 0;
+  }
+  .paniercomplete {
+    flex-direction: column;
+    width: 100%;
+  }
+  .divImagePanier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  .imagepanier {
+    width: 90%;
+  }
+  .commanderdiv {
+    flex-direction: column-reverse;
+  }
+  .titleCart {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  .addBasket {
+    background-color: #e5e5e5;
+    width: 50%;
+    height: 50%;
+    font-size: 20px;
+  }
+  .tdGlobal {
+    padding: 0;
+  }
+  .basketAddRem {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+  .qtyBasket {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    border: solid 1px #e5e5e5;
+  }
 }

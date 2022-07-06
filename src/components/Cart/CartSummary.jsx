@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import PanierContext from "./../../contexts/PanierContext";
 import { Link } from "react-router-dom";
+import "./../../styles/cartSummary.css";
 
 const CartSummary = () => {
   const { cartItems } = useContext(PanierContext);
@@ -11,12 +12,12 @@ const CartSummary = () => {
   const totalPrice = itemsPrice + shippingPrice;
 
   return (
-    <div className="flex justify-center">
-      <div className="col-span-1 bg-white lg:block hidden w-1/4">
+    <div className=" flex justify-center">
+      <div className="resumeMain col-span-1 bg-white lg:block ">
         <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">
           Résumé de votre commande
         </h1>
-        <ul className="py-6 border-b space-y-6 px-8">
+        <ul className=" py-6 border-b space-y-6 px-8">
           {cartItems.map((item, i) => (
             <li className="grid grid-cols-6 gap-2 border-b-1" key={i}>
               <div className="col-span-1 self-center">

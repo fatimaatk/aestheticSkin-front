@@ -1,0 +1,15 @@
+.resumeMain {
+  width: 40rem;
+}
+
+.progressBar {
+  max-width: 50rem;
+  width: 80%;
+}
+
+@media screen and (max-width: 800px) {
+  .resumeMain {
+    width: 80%;
+    text-align: center;
+  }
+}

@@ -17,7 +17,7 @@ const Panier = () => {
       <hr />
       {cartItems.length === 0 && (
         <div>
-          <div className="flex justify-center items-center mt-5">
+          <div className=" flex justify-center items-center mt-5">
             <img src={brand4} alt="Marque" className="w-1/4" />
             <div className="flex flex-col items-end">
               <p className="ml-4">
@@ -37,7 +37,7 @@ const Panier = () => {
       )}
       {cartItems.length !== 0 && (
         <div>
-          <div className="flex  justify-center">
+          <div className=" flex  justify-center">
             <div className="titleCart">
               <h1 className="text-3xl">VOTRE PANIER</h1>
 
@@ -50,9 +50,9 @@ const Panier = () => {
               </h1>
             </div>
           </div>
-          <div className="mainpanier ">
+          <div className="mainpanier">
             <div className="paniercomplete">
-              <table className="tableCart table-auto text-center">
+              <table className="tableCart md:table-fixed table-auto text-center">
                 <thead className="h-2">
                   <tr className="border-gray-500 border-top">
                     <th className="w-20 h-20 text-l ">PRODUIT</th>
@@ -63,7 +63,7 @@ const Panier = () => {
                 </thead>
                 {cartItems.map((item) => (
                   <tbody key={item.id} className="border-top border-bottom p-6">
-                    <td className="divImagePanier p-6">
+                    <td className="tdGlobal divImagePanier p-6">
                       <img
                         src={item.image1}
                         alt={item.title}
@@ -78,7 +78,7 @@ const Panier = () => {
                     </td>
 
                     <td>
-                      <div className="basketAddRem p-6">
+                      <div className="tdGlobal basketAddRem p-6">
                         <button
                           onClick={() => onRemove(item)}
                           className="addBasket"
@@ -95,15 +95,15 @@ const Panier = () => {
                       </div>
                     </td>
 
-                    <td className="p-6 font-m">{item.price}€</td>
-                    <td className=" p-6">
+                    <td className="tdGlobal p-6 font-m">{item.price}€</td>
+                    <td className="tdGlobal p-6">
                       {(item.price * item.qty).toFixed(2)}€
                     </td>
                   </tbody>
                 ))}
               </table>
 
-              <div className="totalpanier border">
+              <div className="totalpanier">
                 <div className="totalItemPanier">
                   <h2 className="text-center font-bold">
                     Total de ma commande
