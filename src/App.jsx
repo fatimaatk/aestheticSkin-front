@@ -33,12 +33,13 @@ import ConfirmOrder from "./components/Cart/ConfirmOrder.jsx";
 import OrderValid from "./components/Cart/OrderValid.jsx";
 import DashboardCommandes from "./components/Dashboard/DashboardCommandes.jsx";
 import ProductsResult from "./components/products/productsResult.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
-  const { products, loading } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -219,24 +220,26 @@ const App = () => {
                 />
 
                 <Routes>
-                  <Route exact path="/" element={<Home />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="*" element={<ErrorPage />} />
                   <Route
-                    exact
                     path="/products"
                     element={<Products cartItems={cartItems} />}
                   />
                   <Route
-                    exact
-                    path="/search/:search"
-                    element={<ProductsResult cartItems={cartItems} />}
-                  />
-                  <Route
-                    exact
                     path="/products/:id"
                     element={<ProductDetails cartItems={cartItems} />}
                   />
-                  <Route path="/connexion" element={<Connection />} />
+                  <Route
+                    path="/search/:search"
+                    element={<ProductsResult cartItems={cartItems} />}
+                  />
+                  <Route path="/favoris" element={<Favoris />} />
+
                   <Route path="/register" element={<Register />} />
+                  <Route path="/connexion" element={<Connection />} />
+                  <Route path="/moncompte" element={<MonCompte />} />
+
                   <Route path="/admin" element={<ProtectedRouteAdmin />}>
                     <Route path="dashboard" element={<DashboardAdmin />} />
                     <Route
@@ -265,9 +268,7 @@ const App = () => {
                     />
                   </Route>
                   <Route path="/monpanier" element={<Panier />} />
-                  <Route path="/favoris" element={<Favoris />} />
-                  <Route path="/moncompte" element={<MonCompte />} />
-                  <Route path="/monpanier/resume" element={<Checkout />} />
+                  <Route path="monpanier/resume" element={<Checkout />} />
                   <Route
                     path="/monpanier/informations"
                     element={<CheckoutInformation />}
@@ -276,7 +277,7 @@ const App = () => {
                     path="/monpanier/paiement"
                     element={<ConfirmOrder RemoveAll={RemoveAll} />}
                   />
-                  <Route path="/order/:id" element={<OrderValid />} />
+                  <Route path="order/:id" element={<OrderValid />} />
                 </Routes>
                 <Footer />
               </PanierContext.Provider>

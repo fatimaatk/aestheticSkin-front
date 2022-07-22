@@ -3,10 +3,7 @@ import Cookies from "js-cookie";
 
 const ProtectedRouteUser = () => {
   const token = Cookies.get("token");
-  const tokenObj = JSON.parse(token);
-
-  return (
-    <>{token && tokenObj.role === "0" ? <Outlet /> : <Navigate to="/" />}</>
-  );
+  console.log(token);
+  return <>{token ? <Outlet /> : <Navigate to="/panier" />}</>;
 };
 export default ProtectedRouteUser;

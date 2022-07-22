@@ -11,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const location = useLocation();
+  //récupérer history
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +22,15 @@ const Login = () => {
         else {
           Cookies.set("token", JSON.stringify(data));
           if (location.pathname === "/monpanier/resume") {
-            window.location.href = "/monpanier/resume";
+            window.location.href = "/monpanier";
           } else if (location.pathname === "/connexion") {
             window.location.href = "/";
+          } else if (location.pathname === "/monpanier/informations") {
+            window.location.href = "/monpanier";
+          } else if (location.pathname === "/monpanier/paiement") {
+            window.location.href = "/monpanier";
+          } else if (location.pathname.startsWith("/order")) {
+            window.location.href = "/moncompte";
           }
         }
       });

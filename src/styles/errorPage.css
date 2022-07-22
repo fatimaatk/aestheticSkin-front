@@ -1,0 +1,17 @@
+.mainErrorPage {
+  color: #e5e5e5;
+}
+
+.contentVideo {
+  width: 25%;
+  margin: 2rem;
+}
+
+.mainErrorPage {
+  height: 70vh;
+}
+
+.oops {
+  font-size: 100px;
+  color: #e5e5e5;
+}
