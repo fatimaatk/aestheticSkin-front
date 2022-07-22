@@ -1,17 +1,11 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const ProtectedRouteAdmin = () => {
   const token = Cookies.get("token");
+  const role = token !== undefined ? JSON.parse(token) : null;
 
-  return (
-    <>
-      {token && token.role === "1" ? (
-        <Outlet />
-      ) : (
-        <Navigate to="*" replace={true} />
-      )}
-    </>
-  );
+  return token && role.role === "1" ? <Outlet /> : <Navigate to="*" />;
 };
+
 export default ProtectedRouteAdmin;

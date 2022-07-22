@@ -17,7 +17,7 @@ const ProductDetails = ({ isAuthenticated }) => {
   const [comments, setComments] = useState([]);
   const [rates, setRates] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const { cartItems, onAdd } = useContext(PanierContext);
+  const { onAdd } = useContext(PanierContext);
   const { favorites, handleFavoris } = useContext(FavorisContext);
   const { user } = useContext(UserContext);
 

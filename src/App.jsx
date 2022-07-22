@@ -241,29 +241,32 @@ const App = () => {
                   <Route path="/moncompte" element={<MonCompte />} />
 
                   <Route path="/admin" element={<ProtectedRouteAdmin />}>
-                    <Route path="dashboard" element={<DashboardAdmin />} />
                     <Route
-                      path="dashboard/products"
+                      path="/admin/dashboard"
+                      element={<DashboardAdmin />}
+                    />
+                    <Route
+                      path="admin/dashboard/products"
                       element={<DashboardProductsList />}
                     />
                     <Route
-                      path="dashboard/product/:id"
+                      path="admin/dashboard/product/:id"
                       element={<DashboardProduct />}
                     />
                     <Route
-                      path="dashboard/addproduct"
+                      path="admin/dashboard/addproduct"
                       element={<DashboardAddNew />}
                     />
                     <Route
-                      path="dashboard/commentaires"
+                      path="admin/dashboard/commentaires"
                       element={<DashboardCommentaires />}
                     />
                     <Route
-                      path="dashboard/comptes"
+                      path="admin/dashboard/comptes"
                       element={<DashboardAccount />}
                     />
                     <Route
-                      path="dashboard/commandes"
+                      path="admin/dashboard/commandes"
                       element={<DashboardCommandes />}
                     />
                   </Route>
