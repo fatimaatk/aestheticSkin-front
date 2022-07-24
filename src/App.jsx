@@ -23,7 +23,6 @@ import DashboardCommentaires from "./components/Dashboard/DashboardCommentaires.
 import DashboardProductsList from "./components/Dashboard/DashboardProductsList.jsx";
 import DashboardProduct from "./components/Dashboard/DashboardProduct.jsx";
 
-import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "./Store/ProductsSlice.js";
 import DashboardAddNew from "./components/Dashboard/DashboardAddNew.jsx";
 import Checkout from "./components/Cart/Checkout.jsx";
@@ -34,17 +33,18 @@ import OrderValid from "./components/Cart/OrderValid.jsx";
 import DashboardCommandes from "./components/Dashboard/DashboardCommandes.jsx";
 import ProductsResult from "./components/products/productsResult.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
+import { useSelector, useDispatch } from "react-redux";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(getProducts());
+    products.length === 0 && dispatch(getProducts());
   }, []);
 
+  const [user, setUser] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   //favoris localStorage
   const [favorites, setFavorites] = useState(() => {
     const localFavorites = localStorage.getItem("favoris");

@@ -3,14 +3,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./../../styles/products.css";
 import { AiOutlineFilter, AiFillFilter } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "../../Store/ProductsSlice";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [texture, setTexture] = useState();
   const [categoryIsSelected, setCategoryIsSelected] = useState({});
   const [textureIsSelected, setTextureIsSelected] = useState({});
   const [showFilter, setShowFilter] = useState(false);
+
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    products.length === 0 && dispatch(getProducts());
+  }, []);
 
   useEffect(() => {
     const isCategorySelected = {};
@@ -36,12 +44,6 @@ const Products = () => {
     //ici je déclare si c'est sélectionné ou non
     setTextureIsSelected(isTextureSelected);
   }, []);
-
-  const getProducts = () => {
-    axios.get("http://localhost:8000/products").then((response) => {
-      setProducts(response.data);
-    });
-  };
 
   const getCategories = () => {
     axios.get("http://localhost:8000/filter/categories").then((response) => {
