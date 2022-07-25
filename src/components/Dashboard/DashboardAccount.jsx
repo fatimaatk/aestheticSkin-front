@@ -37,6 +37,8 @@ const DashboardAccount = () => {
     totalPage.push(i);
   }
 
+  console.log(accounts);
+
   return (
     <div>
       <header className="bg-white shadow">
@@ -61,11 +63,6 @@ const DashboardAccount = () => {
                       </th>
                       <th className="p-2 whitespace-nowrap">
                         <div className="font-semibold text-left">Nom</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">
-                          Nombre de commandes
-                        </div>
                       </th>
                       <th className="p-2 whitespace-nowrap">
                         <div className="font-semibold text-left">Admin</div>

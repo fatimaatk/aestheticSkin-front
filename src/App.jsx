@@ -246,27 +246,27 @@ const App = () => {
                       element={<DashboardAdmin />}
                     />
                     <Route
-                      path="admin/dashboard/products"
+                      path="/admin/dashboard/products"
                       element={<DashboardProductsList />}
                     />
                     <Route
-                      path="admin/dashboard/product/:id"
+                      path="/admin/dashboard/product/:id"
                       element={<DashboardProduct />}
                     />
                     <Route
-                      path="admin/dashboard/addproduct"
+                      path="/admin/dashboard/addproduct"
                       element={<DashboardAddNew />}
                     />
                     <Route
-                      path="admin/dashboard/commentaires"
+                      path="/admin/dashboard/commentaires"
                       element={<DashboardCommentaires />}
                     />
                     <Route
-                      path="admin/dashboard/comptes"
+                      path="/admin/dashboard/comptes"
                       element={<DashboardAccount />}
                     />
                     <Route
-                      path="admin/dashboard/commandes"
+                      path="/admin/dashboard/commandes"
                       element={<DashboardCommandes />}
                     />
                   </Route>

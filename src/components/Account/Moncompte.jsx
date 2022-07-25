@@ -13,7 +13,7 @@ const MonCompte = () => {
     <>
       {user.email ? (
         <div className="flex flex-col">
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 flex justify-center items-start">
+          <div className="overflow-x-auto flex justify-center items-start">
             <div className="py-2 flex justify-center  sm:px-6 lg:px-8">
               <div className="flex flex-col justify-center mt-6 ">
                 <div className="flex justify-around align-center  p-6 ">

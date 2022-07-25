@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/login.css";
 import Cookies from "js-cookie";
@@ -10,8 +10,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  //récupérer l'emplacement de la page
   const location = useLocation();
-  //récupérer history
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const Login = () => {
         if (data.error) setError(data.error);
         else {
           Cookies.set("token", JSON.stringify(data));
+          //Redirection des pages suite à la connexion
           if (location.pathname === "/monpanier/resume") {
             window.location.href = "/monpanier";
           } else if (location.pathname === "/connexion") {
@@ -31,6 +34,8 @@ const Login = () => {
             window.location.href = "/monpanier";
           } else if (location.pathname.startsWith("/order")) {
             window.location.href = "/moncompte";
+          } else if (location.href.startsWith("/products")) {
+            window.location.href = "/products";
           }
         }
       });

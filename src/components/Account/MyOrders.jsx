@@ -73,6 +73,7 @@ const MyOrders = ({ user }) => {
           ))}
         </tbody>
       </table>
+      {orders.length === 0 && <p>Vous n'avez pas de commandes</p>}
     </div>
   );
 };

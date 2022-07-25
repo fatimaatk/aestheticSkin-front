@@ -39,9 +39,6 @@ const EditAccount = ({ account }) => {
         <td className="p-2 ">
           <div className="text-left">{account.lastname}</div>
         </td>
-        <td className="p-2 ">
-          <div className="text-left"></div>
-        </td>
 
         <td className="p-2 ">
           <div className="text-left">
