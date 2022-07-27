@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, MemoryRouter } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";

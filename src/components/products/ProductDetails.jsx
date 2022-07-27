@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, MemoryRouter } from "react-router-dom";
 import axios from "axios";
 import { BsHeartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
@@ -9,6 +9,7 @@ import "./../../styles/details.css";
 import FavorisContext from "./../../contexts/FavorisContext";
 import { UserContext } from "./../../contexts/UserContext";
 import AddComment from "./AddComment";
+import Cookies from "js-cookie";
 
 const ProductDetails = ({ isAuthenticated }) => {
   const navigate = useNavigate();
@@ -20,11 +21,13 @@ const ProductDetails = ({ isAuthenticated }) => {
   const { onAdd } = useContext(PanierContext);
   const { favorites, handleFavoris } = useContext(FavorisContext);
   const { user } = useContext(UserContext);
+  const [currentUrl, setCurrentUrl] = useState("");
 
   useEffect(() => {
     getProduct();
     getComments();
     getRates();
+    getUrlInCookies();
   }, [params.id]);
 
   const showAllComments = () => {
@@ -64,6 +67,9 @@ const ProductDetails = ({ isAuthenticated }) => {
   );
 
   const result = Math.round(sumWithInitial / allRates.length);
+  const getUrlInCookies = () => {
+    setCurrentUrl(Cookies.set("previousUrl", window.location.href));
+  };
 
   return (
     <div className="mainProduct mb-10">
@@ -140,7 +146,7 @@ const ProductDetails = ({ isAuthenticated }) => {
                     Donnez votre avis
                   </button>
                 ) : (
-                  <Link to="/connexion">
+                  <Link to={`/connexion?returnURL=/products/${product.id}`}>
                     <button className="hover:underline">
                       Connectez vous et donnez votre avis
                     </button>

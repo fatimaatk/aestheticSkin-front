@@ -8,8 +8,6 @@ const AddComments = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  console.log("rate", rate);
-  console.log("comment", comment);
   return (
     <div
       className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"

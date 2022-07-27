@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/login.css";
 import Cookies from "js-cookie";
@@ -9,11 +9,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
   //récupérer l'emplacement de la page
   const location = useLocation();
-
-  const navigate = useNavigate();
+  const previousUrl = window.location.search.replace("?returnURL=", "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,16 +24,24 @@ const Login = () => {
           //Redirection des pages suite à la connexion
           if (location.pathname === "/monpanier/resume") {
             window.location.href = "/monpanier";
-          } else if (location.pathname === "/connexion") {
-            window.location.href = "/";
+            // } else if (location.pathname === "/connexion") {
+            //   window.location.href = "/";
           } else if (location.pathname === "/monpanier/informations") {
             window.location.href = "/monpanier";
           } else if (location.pathname === "/monpanier/paiement") {
             window.location.href = "/monpanier";
           } else if (location.pathname.startsWith("/order")) {
             window.location.href = "/moncompte";
-          } else if (location.href.startsWith("/products")) {
-            window.location.href = "/products";
+          } else if (
+            location.pathname === "/connexion" &&
+            location.search.includes("?")
+          ) {
+            window.location.href = previousUrl;
+          } else if (
+            location.pathname === "/connexion" &&
+            location.search === ""
+          ) {
+            window.location.href = "/";
           }
         }
       });
