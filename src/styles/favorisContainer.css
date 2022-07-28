@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
   min-height: 50vh;
 }
 
@@ -13,8 +13,37 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  border: solid 1px black;
+  padding-bottom: 1rem;
+}
+
+.imgFav {
+  width: 30%;
 }
 
 .supFav {
   background-color: #e5e5e5;
+}
+
+@media screen and (max-width: 768px) {
+  .noFavoris {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 50vh;
+  }
+  .noFavorisButton {
+    align-items: center;
+  }
+  .noFavorisText {
+    max-width: 10rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .imgFav {
+    width: 280px;
+  }
+  .buttonFav {
+    align-items: center;
+    text-align: center;
+  }
 }

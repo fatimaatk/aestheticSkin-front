@@ -1,10 +1,19 @@
 import "./../styles/navbar.css";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { BsCart, BsCartCheck, BsHeart, BsSearch } from "react-icons/bs";
+import {
+  BsCart,
+  BsCartCheck,
+  BsHeart,
+  BsSearch,
+  BsHeartFill,
+} from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import FavorisContext from "../contexts/FavorisContext";
+
 const NavBar = (props) => {
+  const { favorites } = useContext(FavorisContext);
   const { cartItems, isAuthenticated } = props;
   const [result, setResult] = useState("");
   const [showMenu, setShowMenu] = useState(false);
@@ -23,6 +32,8 @@ const NavBar = (props) => {
 
   const arrayOfQty = cartItems.map((x) => parseInt(x.qty));
   const qty = arrayOfQty.length > 0 && arrayOfQty.reduce((a, b) => a + b);
+
+  console.log(favorites);
   return (
     <div>
       <div className="messagepromo">
@@ -67,7 +78,14 @@ const NavBar = (props) => {
 
           <div className="flex flex-row liMenu">
             <Link to="/favoris">
-              <BsHeart className=" text-2xl" />
+              {favorites.length > 0 ? (
+                <div className="flex flex-row">
+                  <BsHeartFill className=" text-2xl" />
+                  <p className="text-black ml-2">{favorites.length}</p>
+                </div>
+              ) : (
+                <BsHeart className=" text-2xl" />
+              )}
             </Link>
           </div>
 

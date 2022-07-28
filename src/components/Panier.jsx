@@ -56,7 +56,7 @@ const Panier = () => {
                 <thead className="h-2">
                   <tr className="border-gray-500 border-top">
                     <th className="w-20 h-20 text-l ">PRODUIT</th>
-                    <th className="w-20 h-20 text-l">TITRE</th>
+                    <th className="w-20 h-20 text-l">QUANTITE</th>
                     <th className="w-20 h-20 text-l">PRIX</th>
                     <th className="w-20 h-20 text-l">PRIX TOTAL</th>
                   </tr>
