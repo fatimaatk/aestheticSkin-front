@@ -35,6 +35,10 @@ import ProductsResult from "./components/products/productsResult.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import { useSelector, useDispatch } from "react-redux";
 
+import io from "socket.io-client";
+import WebSocket from "./components/WebSocket.jsx";
+const socket = io();
+
 const App = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
@@ -222,6 +226,7 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="*" element={<ErrorPage />} />
+                  <Route path="/messagerie" element={<WebSocket />} />
                   <Route
                     path="/products"
                     element={<Products cartItems={cartItems} />}

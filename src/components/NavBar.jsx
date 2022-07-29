@@ -33,7 +33,6 @@ const NavBar = (props) => {
   const arrayOfQty = cartItems.map((x) => parseInt(x.qty));
   const qty = arrayOfQty.length > 0 && arrayOfQty.reduce((a, b) => a + b);
 
-  console.log(favorites);
   return (
     <div>
       <div className="messagepromo">
